@@ -1,0 +1,28 @@
+.cointainer-main{
+  margin: 2%;
+  min-width: 96%;
+}
+
+.head{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: auto;
+  width: 100%;
+  cursor: pointer;
+  border: 2px solid black;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  min-width: 100%;
+}
+
+.column{
+  display: flex;
+  width: 50%;
+  justify-content: center;
+}

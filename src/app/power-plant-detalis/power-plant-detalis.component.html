@@ -1,0 +1,34 @@
+<tr>
+  <td>Buildings</td>
+  <td>Level</td>
+  <td>Workers</td>
+  <td>Space</td>
+</tr>
+<tr>
+  <td>{{powerPlant.buildings}}</td>
+  <td>{{powerPlant.level}}</td>
+  <td>{{powerPlant.workers}}</td>
+  <td>{{powerPlant.freeSpace}}</td>
+</tr>
+<tr>
+  <td>Build price</td>
+</tr>
+<tr>
+  <td colspan="2">Money</td>
+  <td colspan="2" *ngIf="powerPlant.greenPrice"></td>
+</tr>
+<tr>
+  <td colspan="2">{{powerPlant.moneyPrice}}</td>
+  <td colspan="2" *ngIf="powerPlant.greenPrice">{{powerPlant.greenPrice}}</td>
+</tr>
+<tr>
+  <td>Upgrade price</td>
+</tr>
+<tr>
+  <td colspan="2">Money</td>
+  <td colspan="2" *ngIf="powerPlant.greenPrice"></td>
+</tr>
+<tr>
+  <td colspan="2">{{powerPlant.moneyPrice}}</td>
+  <td colspan="2" *ngIf="powerPlant.greenPrice">{{powerPlant.greenPrice}}</td>
+</tr>
