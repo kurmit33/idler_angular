@@ -1,4 +1,3 @@
-import { global } from './global';
 import { resources } from './resources';
 
 export class PowerPlant {
@@ -7,22 +6,21 @@ export class PowerPlant {
   level = 0;
   buildings = 0;
   engineers = 0;
-  productionMultiplier: number;
   priceMultiplier: number;
+  productionMultiplier: number;
   moneyPrice = 5;
   greenPrice = 0;
-  startSpace = 2000;
 
-  constructor(id: number, name: string, productionMulti: number, priceMulti: number, greenPrice?: number) {
+  constructor(id: number, name: string, priceMulti: number, productionMulti: number, greenPrice?: number) {
     this.name = name;
-    this.productionMultiplier = productionMulti;
     this.priceMultiplier = priceMulti;
+    this.productionMultiplier = productionMulti;
     this.greenPrice = greenPrice;
     this.id = id;
   }
 
   freeSpace() {
-    return this.startSpace * (this.level + 1);
+    return 2000 * (this.level + 1);
   }
 
   production(name: string, eventMulti: number) {
@@ -49,8 +47,8 @@ export class PowerPlant {
     return newPrice - lastPrice;
   }
 
-  hire(workers: number, num: number) {
-    if (num <= workers) {
+  hire(num: number) {
+    if (num <= resources.workers) {
       this.engineers += num;
       resources.workers -= num;
     }
