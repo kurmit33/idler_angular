@@ -1,34 +1,47 @@
-<tr>
-  <td>Buildings</td>
-  <td>Level</td>
-  <td>Workers</td>
-  <td>Space</td>
-</tr>
-<tr>
-  <td>{{powerPlant.buildings}}</td>
-  <td>{{powerPlant.level}}</td>
-  <td>{{powerPlant.workers}}</td>
-  <td>{{powerPlant.freeSpace}}</td>
-</tr>
-<tr>
-  <td>Build price</td>
-</tr>
-<tr>
-  <td colspan="2">Money</td>
-  <td colspan="2" *ngIf="powerPlant.greenPrice"></td>
-</tr>
-<tr>
-  <td colspan="2">{{powerPlant.moneyPrice}}</td>
-  <td colspan="2" *ngIf="powerPlant.greenPrice">{{powerPlant.greenPrice}}</td>
-</tr>
-<tr>
-  <td>Upgrade price</td>
-</tr>
-<tr>
-  <td colspan="2">Money</td>
-  <td colspan="2" *ngIf="powerPlant.greenPrice"></td>
-</tr>
-<tr>
-  <td colspan="2">{{powerPlant.moneyPrice}}</td>
-  <td colspan="2" *ngIf="powerPlant.greenPrice">{{powerPlant.greenPrice}}</td>
-</tr>
+<div>
+  <div class="row">
+    <div class="column">
+      <span>Buildings</span>
+      <span>{{powerPlant.buildings}}</span>
+    </div>
+    <div class="column">
+      <span>Level</span>
+      <span>{{powerPlant.level}}</span>
+    </div>
+    <div class="column">
+      <span>Engineers</span>
+      <span>{{powerPlant.engineers}}</span>
+    </div>
+    <div class="column">
+      <span>Free space</span>
+      <span>{{powerPlant.freeSpace()}}</span>
+    </div>
+  </div>
+  <div class="row"><span>Build price</span></div>
+  <div class="row">
+    <div class="column">
+      <span>Money</span>
+      <span>{{powerPlant.buildPrice(1)}}</span>
+    </div>
+    <div class="column" *ngIf="powerPlant.greenPrice">
+      <span>Green certyfication</span>
+      <span>{{powerPlant.greenBuildPrice(1)}}</span>
+    </div>
+  </div>
+  <div class="row"><span>Upgrade price</span></div>
+  <div class="row">
+    <div class="column">
+      <span>Money</span>
+      <span>{{powerPlant.upgradePrice(1)}}</span>
+    </div>
+    <div class="column" *ngIf="powerPlant.greenPrice">
+      <span>Green certyfication</span>
+      <span>{{powerPlant.greenUpgradePrice(1)}}</span>
+    </div>
+  </div>
+  <div class="row">
+    <button>Build</button>
+    <button>Upgrade</button>
+    <button>Hire</button>
+  </div>
+</div>

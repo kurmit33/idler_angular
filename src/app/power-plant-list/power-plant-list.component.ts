@@ -8,7 +8,7 @@ import { POWERPLANTS } from '../powerPlantList';
 })
 export class PowerPlantListComponent implements OnInit {
   powerPlants = POWERPLANTS;
-  clickedID = -1;
+  clickedID: number;
   constructor() { }
 
   ngOnInit() {

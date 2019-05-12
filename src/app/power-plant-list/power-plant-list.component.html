@@ -2,9 +2,9 @@
   <div class="cointainer-main">
     <div (click)="onSelect(powerPlant.id)" class="head">
       <div class="row">{{powerPlant.name}}</div>
-      <div class="row"><div class="column">Production</div><div class="column">0</div></div>
+      <div class="row"><div class="column">Production</div><div class="column">{{powerPlant.production('', 1)}}</div></div>
     </div>
-    <div *ngIf="i == clickedID">
+    <div *ngIf="i === clickedID">
       <app-power-plant-detalis [powerPlant]="powerPlant"></app-power-plant-detalis>
     </div>
   </div>
