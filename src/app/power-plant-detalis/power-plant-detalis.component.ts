@@ -16,6 +16,5 @@ export class PowerPlantDetalisComponent implements OnInit {
 
 
   build() {
-    this.powerPlant.buildings++;
   }
 }

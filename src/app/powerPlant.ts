@@ -69,7 +69,7 @@ export class PowerPlant {
   }
 
   setField(name: string, value: number): void {
-    switch(name) {
+    switch (name) {
       case 'buildings':
         this.buildings += value;
         break;
@@ -83,7 +83,7 @@ export class PowerPlant {
   }
 
   getField(name: string): any {
-    switch(name) {
+    switch (name) {
       case 'buildings':
         return this.buildings;
       case 'level':

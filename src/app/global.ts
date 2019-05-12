@@ -1,16 +1,22 @@
 import { resources } from './resources';
 
-
 class Global {
-  onLoad() {
+  public multiplier = 1;
+  randomus(mini: number, maxi: number, multi: number): number {
+    return Math.floor(Math.random() * (maxi - mini ) + mini ) * multi;
   }
+
   unLoad() {
-  }
-  changeMoney(num) {
 
   }
+
+  changeNumber(num) {
+
+  }
+
   updateLocalStorage() {
   }
+
 }
 
-export const global = new Global();
+export const globalFunctions = new Global();
