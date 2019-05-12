@@ -9,18 +9,18 @@ export class GreenPowerPlant extends PowerPlant {
 
   build(num: number) {
     if (this.freeSpace() >= (this.buildings + num)) {
-      if ( resources.money >= this.buildPrice(num)) {
-        resources.money -= this.buildPrice(num);
+      if ( resources.getResources('money') >= this.buildPrice(num)) {
+        resources.setResources('money', -this.buildPrice(num));
         this.buildings += num;
-        resources.greenCertyfiaction += num;
+        resources.setResources('greenCertyfiaction', num);
       }
     }
   }
 
   upgrade(num: number) {
     if (this.buildings >= (this.freeSpace() / 80)) {
-      if (resources.money >= this.upgradePrice(num)) {
-        resources.money -= this.upgradePrice(num);
+      if (resources.getResources('money') >= this.upgradePrice(num)) {
+        resources.setResources('money', -this.upgradePrice(num));
         this.level += num;
       }
     }

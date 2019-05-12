@@ -1,0 +1,52 @@
+div{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.column{
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%
+}
+
+span{
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  width: 90%;
+}
+
+button{
+  margin: 5px 0px;
+  width: 100px;
+  height: 30px;
+  font-weight: bolder;
+  font-size: 1.05em;
+  color: burlywood;
+  background-color: black;
+  border: 2px solid burlywood;
+  border-radius: 5px;
+}
+
+button:hover{
+  color: black;
+  background-color: burlywood;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+button:focus{
+  outline: none;
+}
