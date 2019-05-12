@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { PowerPlant } from '../powerPlant';
-import { PowerPlantListComponent } from '../power-plant-list/power-plant-list.component';
 
 @Component({
   selector: 'app-power-plant-detalis',
@@ -15,4 +14,8 @@ export class PowerPlantDetalisComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  build() {
+    this.powerPlant.buildings++;
+  }
 }

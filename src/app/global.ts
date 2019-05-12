@@ -1,16 +1,16 @@
-import { Resources } from './resources';
+import { resources } from './resources';
 
 
-export class Global{
-  static onLoad(){
-    if(localStorage.length !=0){
-    }
+class Global {
+  onLoad() {
   }
-  static unLoad(){
+  unLoad() {
   }
-  static changeMoney(num){
-    Resources.money += num;
+  changeMoney(num) {
+
   }
-  static updateLocalStorage(){
+  updateLocalStorage() {
   }
 }
+
+export const global = new Global();

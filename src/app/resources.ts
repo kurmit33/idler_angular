@@ -1,8 +1,12 @@
-export class Resources{
-  static money: number;
-  static workes: number;
-  static greenCertyfiaction: number;
-  static energy: number;
-  static energyPrice: number;
-  static greenPrice: number;
+class Resources {
+  money: number;
+  workers: number;
+  greenCertyfiaction: number;
+  energy: number;
+  energyPrice: number;
+  greenPrice: number;
+
+  constructor() { }
 }
+
+export const resources = new Resources();
