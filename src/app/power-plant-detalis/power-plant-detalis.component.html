@@ -21,22 +21,22 @@
   <div class="row">
     <div class="column">
       <span>Money</span>
-      <span>{{powerPlant.buildPrice(1) | shortNumber: 2}}</span>
+      <span>{{powerPlant.buildPrice(multi) | shortNumber: 2}}</span>
     </div>
     <div class="column" *ngIf="powerPlant.greenPrice">
       <span>Green certyfication</span>
-      <span>{{powerPlant.greenBuildPrice(1) | shortNumber: 2}}</span>
+      <span>{{powerPlant.greenBuildPrice(multi) | shortNumber: 2}}</span>
     </div>
   </div>
   <div class="row"><span>Upgrade price</span></div>
   <div class="row">
     <div class="column">
       <span>Money</span>
-      <span>{{powerPlant.upgradePrice(1) | shortNumber: 2}}</span>
+      <span>{{powerPlant.upgradePrice(multi) | shortNumber: 2}}</span>
     </div>
     <div class="column" *ngIf="powerPlant.greenPrice">
       <span>Green certyfication</span>
-      <span>{{powerPlant.greenUpgradePrice(1) | shortNumber: 2}}</span>
+      <span>{{powerPlant.greenUpgradePrice(multi) | shortNumber: 2}}</span>
     </div>
   </div>
   <div class="row">

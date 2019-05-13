@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { POWERPLANTS } from '../powerPlantList';
 import { timer } from 'rxjs';
+import { globalFunctions } from '../global';
 
 @Component({
   selector: 'app-power-plant-list',
@@ -9,6 +10,7 @@ import { timer } from 'rxjs';
 })
 export class PowerPlantListComponent implements OnInit {
   powerPlants = POWERPLANTS;
+  globalFunctions = globalFunctions;
   clickedID: number;
   constructor() { }
 
