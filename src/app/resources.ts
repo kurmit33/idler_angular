@@ -1,10 +1,12 @@
+import { globalFunctions } from './global';
+import { timer } from 'rxjs';
+
 class Resources {
   private money = 0;
   private workers = 0;
   private greenCertyfiaction = 0;
-  private energy = 0;
-  private energyPrice = 0;
-  private greenPrice = 0;
+  private electricty = 0;
+  private electrictyPrice = 0;
   private name = 'Resources';
 
   constructor() {
@@ -21,12 +23,10 @@ class Resources {
         return this.workers;
       case 'greenCertyfiaction':
         return this.greenCertyfiaction;
-      case 'energy':
-        return this.energy;
-      case 'energyPrice':
-        return this.energyPrice;
-      case 'greenPrice':
-        return this.greenPrice;
+      case 'electricty':
+        return this.electricty;
+      case 'electrictyPrice':
+        return this.electrictyPrice;
     }
   }
   setResources(what: string, num: number) {
@@ -41,16 +41,17 @@ class Resources {
         this.greenCertyfiaction += num;
         break;
       case 'energy':
-        this.energy += num;
+        this.electricty += num;
         break;
     }
   }
 
   changePrice() {
-
+    this.electrictyPrice = globalFunctions.randomus(10, 25, 0.01);
   }
 
   sellResources() {
+    this.money += this.electricty * this.electrictyPrice;
   }
 
   updateStorage() {

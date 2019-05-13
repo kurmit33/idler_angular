@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { POWERPLANTS } from '../powerPlantList';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-power-plant-list',
