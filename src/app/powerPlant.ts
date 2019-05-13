@@ -1,4 +1,5 @@
 import { resources } from './resources';
+import { ProductionEvent } from './productionEvent';
 
 export class PowerPlant {
   protected name: string;
@@ -22,14 +23,18 @@ export class PowerPlant {
     return 2000 * (this.level + 1);
   }
 
-  production(name: string, eventMulti: number) {
-    const tempProduction: number = (this.buildings * this.productionMultiplier * (this.level + 1));
-    if (this.name === name) {
-      return  tempProduction + (tempProduction * this.engineers * 0.02) +
-              (tempProduction * resources.getResources('workers') * 0.001) + (tempProduction * eventMulti);
+  production(event?: ProductionEvent) {
+    const startProduction: number = (this.buildings * this.productionMultiplier * (this.level + 1));
+    const tempProduction = startProduction + (startProduction * this.engineers * 0.02) +
+    (startProduction * resources.getResources('workers') * 0.001);
+    if (!event) {
+      return tempProduction;
     } else {
-      return  tempProduction + (tempProduction * this.engineers * 0.02) +
-              (tempProduction * resources.getResources('workers') * 0.001);
+      if (this.name === event.name) {
+        return  tempProduction + (tempProduction * event.multi);
+      } else {
+        return  tempProduction;
+      }
     }
   }
 
