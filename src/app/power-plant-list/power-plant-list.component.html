@@ -1,13 +1,20 @@
-<div *ngFor="let powerPlant of powerPlants; let i = index">
-  <div class="cointainer-main">
-    <div (click)="onSelect(powerPlant.id)" class="head">
-      <div class="row">{{powerPlant.name}}</div>
-      <div class="row"><div class="column">Production</div><div class="column">{{powerPlant.production('', 1)}}</div></div>
-    </div>
-    <div *ngIf="i === clickedID">
-      <app-power-plant-detalis [powerPlant]="powerPlant" [multi]="globalFunctions.multiplier"></app-power-plant-detalis>
-    </div>
-  </div>
+<div #widgetParentDiv class="bg">
+  <mat-sidenav-container>
+  <mat-grid-list cols="{{this.columnNum}}" rowHeight="750px" gutterSize="5px">
+    <mat-grid-tile *ngFor="let powerPlant of powerPlants; let i = index" [colspan]="4" [rowspan]="1">
+      <mat-card class="power-plant">
+        <mat-card-header>
+          <img mat-card-avatar src={{powerPlant.logoImage}}>
+          <mat-card-title>{{powerPlant.name}}</mat-card-title>
+          <mat-card-subtitle>Production: {{powerPlant.production('') * 10}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src={{powerPlant.image}}>
+        <mat-card-content>
+          <app-power-plant-detalis [powerPlant]="powerPlant" [multi]="resources.multiplier"></app-power-plant-detalis>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <button mat-raised-button color="primary">Primary</button>
+</mat-sidenav-container>
 </div>
-
-

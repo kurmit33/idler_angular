@@ -3,24 +3,25 @@ import { resources } from './resources';
 
 
 export class GreenPowerPlant extends PowerPlant {
-  constructor(id: number, name: string, multi: number) {
-    super(id, name, multi, multi * 0.01 );
+  public logoImage = 'assets/image/green-energy.jpg';
+  constructor(id: number, name: string, multi: number, img: string) {
+    super(id, name, multi, multi * 0.01, img);
   }
 
   build(num: number) {
     if (this.freeSpace() >= (this.buildings + num)) {
-      if ( resources.getResources('money') >= this.buildPrice(num)) {
-        resources.setResources('money', -this.buildPrice(num));
+      if ( resources.money >= this.buildPrice(num)) {
+        resources.money -= this.buildPrice(num);
         this.buildings += num;
-        resources.setResources('greenCertyfiaction', num);
+        resources.greenCertyfiaction += num;
       }
     }
   }
 
   upgrade(num: number) {
     if (this.buildings >= (this.freeSpace() / 80)) {
-      if (resources.getResources('money') >= this.upgradePrice(num)) {
-        resources.setResources('money', -this.upgradePrice(num));
+      if (resources.money >= this.upgradePrice(num)) {
+        resources.money -= this.upgradePrice(num);
         this.level += num;
       }
     }

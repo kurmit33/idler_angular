@@ -1,4 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {
+  MatToolbarModule, MatListModule, MatButtonModule, MatCheckboxModule,
+  MatDividerModule, MatCardModule, MatGridListModule, MatTableModule, MatSidenavModule
+} from '@angular/material';
+import { LayoutModule } from '@angular/cdk/layout';
+
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -7,6 +15,8 @@ import { PowerPlantListComponent } from './power-plant-list/power-plant-list.com
 import { PowerPlantDetalisComponent } from './power-plant-detalis/power-plant-detalis.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { ShortNumberPipe } from './pipes/short-number.pipe';
+import { EventDetalisComponent } from './event-detalis/event-detalis.component';
+
 
 @NgModule({
   declarations: [
@@ -14,16 +24,27 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
     PowerPlantListComponent,
     PowerPlantDetalisComponent,
     ResourcesComponent,
-    ShortNumberPipe
+    ShortNumberPipe,
+    EventDetalisComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatGridListModule,
+    MatToolbarModule,
+    MatDividerModule,
+    MatListModule,
+    MatTableModule,
+    LayoutModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 
 export class AppModule {
-
 }

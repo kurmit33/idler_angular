@@ -2,21 +2,24 @@ import { resources } from './resources';
 import { ProductionEvent } from './productionEvent';
 
 export class PowerPlant {
-  protected name: string;
-  protected id: number;
-  protected level = 0;
-  protected buildings = 0;
-  protected engineers = 0;
-  protected priceMultiplier: number;
-  protected productionMultiplier: number;
-  protected greenPrice: number;
+  public name: string;
+  public id: number;
+  public level = 0;
+  public buildings = 0;
+  public engineers = 0;
+  public priceMultiplier: number;
+  public productionMultiplier: number;
+  public greenPrice: number;
+  public logoImage: string;
+  public image: string;
 
-  constructor(id: number, name: string, priceMulti: number, productionMulti: number, greenPrice?: number) {
+  constructor(id: number, name: string, priceMulti: number, productionMulti: number, image: string, greenPrice?: number) {
     this.name = name;
     this.priceMultiplier = priceMulti;
     this.productionMultiplier = productionMulti;
     this.greenPrice = greenPrice;
     this.id = id;
+    this.image = 'assets/image/' + image + '.png';
   }
 
   freeSpace() {
@@ -26,7 +29,7 @@ export class PowerPlant {
   production(event?: ProductionEvent) {
     const startProduction: number = (this.buildings * this.productionMultiplier * (this.level + 1));
     const tempProduction = startProduction + (startProduction * this.engineers * 0.02) +
-    (startProduction * resources.getResources('workers') * 0.001);
+    (startProduction * resources.workers * 0.001);
     if (!event) {
       return tempProduction;
     } else {
@@ -58,12 +61,19 @@ export class PowerPlant {
   }
 
   hire(num: number) {
-    if (num <= resources.getResources('workers')) {
+    if (num <= resources.workers) {
       this.engineers += num;
-      resources.setResources('wrokers', num);
+      resources.workers -= num;
     }
   }
 
+  build(num: number) {
+
+  }
+
+  upgrade(num: number) {
+
+  }
   updateStorage() {
     localStorage.setItem(this.name, JSON.stringify(this));
   }
@@ -71,36 +81,5 @@ export class PowerPlant {
   getStorage() {
     const items = JSON.parse(localStorage.getItem(this.name));
     Object.assign(this, items);
-  }
-
-  setField(name: string, value: number): void {
-    switch (name) {
-      case 'buildings':
-        this.buildings += value;
-        break;
-      case 'level':
-        this.level += value;
-        break;
-      case 'engineers':
-        this.engineers += value;
-        break;
-    }
-  }
-
-  getField(name: string): any {
-    switch (name) {
-      case 'buildings':
-        return this.buildings;
-      case 'level':
-        return this.level;
-      case 'name':
-        return this.name;
-      case 'id':
-        return this.id;
-      case 'engineers':
-        return this.engineers;
-      case 'greenPrice':
-        return this.greenBuildPrice;
-    }
   }
 }

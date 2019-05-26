@@ -2,8 +2,9 @@ import { PowerPlant } from './powerPlant';
 import { resources } from './resources';
 
 export class ConvencionalPowerPlant extends PowerPlant {
-  constructor(id: number, name: string, multi: number) {
-    super(id, name, multi, multi * 0.025, 5);
+  public logoImage = 'assets/image/dirty-energy.jpg';
+  constructor(id: number, name: string, multi: number, image: string) {
+    super(id, name, multi, multi * 0.025, image, 5);
   }
 
   greenBuildPrice(num: number) {
@@ -16,10 +17,10 @@ export class ConvencionalPowerPlant extends PowerPlant {
 
   build(num: number) {
     if (this.freeSpace() >= (this.buildings + num)) {
-      if ((resources.getResources('money') >= this.buildPrice(num))
-      && (resources.getResources('greenCertyfiaction') >= this.greenBuildPrice(num))) {
-        resources.setResources('money', -this.buildPrice(num));
-        resources.setResources('greenCertyfiaction', -this.greenBuildPrice(num));
+      if ((resources.money >= this.buildPrice(num))
+      && (resources.greenCertyfiaction >= this.greenBuildPrice(num))) {
+        resources.money -= this.buildPrice(num);
+        resources.greenCertyfiaction -= this.greenBuildPrice(num);
         this.buildings += num;
       }
     }
@@ -27,10 +28,10 @@ export class ConvencionalPowerPlant extends PowerPlant {
 
   upgrade(num: number) {
     if (this.buildings >= (this.freeSpace() / 80)) {
-      if ((resources.getResources('money') >= this.upgradePrice(num))
-      && (resources.getResources('greenCertyfiaction') >= this.greenUpgradePrice(num))) {
-        resources.setResources('money', -this.upgradePrice(num));
-        resources.setResources('greenCertyfiaction', -this.greenUpgradePrice(num));
+      if ((resources.money >= this.upgradePrice(num))
+      && (resources.greenCertyfiaction >= this.greenUpgradePrice(num))) {
+        resources.money -= this.upgradePrice(num);
+        resources.greenCertyfiaction -= this.greenUpgradePrice(num);
         this.level += num;
       }
     }

@@ -36,6 +36,20 @@ button:hover{
   border-radius: 5px;
 }
 
+.click{
+  color: burlywood;
+  background-color: black;
+  border: 2px solid burlywood;
+  border-radius: 5px;
+}
+
+.click:hover{
+  color: black;
+  background-color: burlywood;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
 button:focus{
   outline: none;
 }
@@ -48,4 +62,18 @@ button:focus{
 .multi{
   margin-top: 20px;
   width: 125px;
+}
+
+.clicked{
+  color: black;
+  background-color: burlywood;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.clicked:hover{
+  color: burlywood;
+  background-color: black;
+  border: 2px solid burlywood;
+  border-radius: 5px;
 }

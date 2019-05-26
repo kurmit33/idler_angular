@@ -26,3 +26,8 @@
   width: 50%;
   justify-content: center;
 }
+
+.power-plant {
+  min-width: 300px;
+  min-height: 710px;
+}

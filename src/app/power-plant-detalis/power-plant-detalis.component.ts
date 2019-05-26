@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { PowerPlant } from '../powerPlant';
-import { globalFunctions } from '../global';
+import { resources } from '../resources';
 
 @Component({
   selector: 'app-power-plant-detalis',
@@ -14,13 +14,20 @@ export class PowerPlantDetalisComponent implements OnInit {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
-    this.multi = globalFunctions.multiplier;
+    this.multi = resources.multiplier;
   }
   ngOnInit() {
   }
 
   build() {
+    this.powerPlant.build(this.multi);
+  }
+
+  upgrade() {
+    this.powerPlant.upgrade(this.multi);
+  }
+
+  hire() {
+    this.powerPlant.hire(this.multi);
   }
 }
