@@ -1,41 +1,49 @@
-import { globalFunctions } from './global';
-
 export class ProductionEvent {
   name: string;
   title: string;
+  nameTitle: string;
   chanceMin: number;
   chanceMax: number;
   eventTime: number;
   lessOrMore = '';
   workEvent: string;
-  multi = 0;
+  multi: number;
 
-  constructor(name, title, chanceMin, chanceMax){
+  constructor(name: string, nameTitle: string, chanceMin: number, chanceMax: number) {
     this.name = name;
-    this.title = title;
+    this.nameTitle = nameTitle;
     this.chanceMin = chanceMin;
     this.chanceMax = chanceMax;
   }
 
+  randomus(mini: number, maxi: number, multi: number): number {
+    let temp: number;
+    temp = Number(Math.floor(Math.random() * (maxi - mini ) + mini ) * multi);
+    return temp;
+  }
+
   isOn(num: number) {
+    this.multi = 0;
+    this.title = '';
     if (num >= this.chanceMin && num < this.chanceMax) {
       this.multi = this.goodOrBad();
-      globalFunctions.eventTitle = this.title + this.lessOrMore + this.multi;
+      const multiTitle = this.multi.toFixed(2);
+      this.title = this.nameTitle + this.lessOrMore + multiTitle;
+      return true;
     } else if (num >= 100) {
-      globalFunctions.eventTitle = 'No events!';
+      return  false;
     } else {
-      this.workEvent = '';
-      this.multi = 0;
+      return false;
     }
   }
 
-  goodOrBad() {
-    if (globalFunctions.randomus(1, 2, 1) === 1) {
+  goodOrBad(): number {
+    if (this.randomus(1, 2, 1) === 1) {
       this.lessOrMore = 'more energy. The multiplier is ';
-      return globalFunctions.randomus(10, 50, 0.01);
+      return this.randomus(10, 50, 0.01);
     } else {
       this.lessOrMore = 'less energy. The multiplier is ';
-      return -(globalFunctions.randomus(10, 50, 0.01));
+      return  -(this.randomus(10, 50, 0.01));
     }
   }
 }

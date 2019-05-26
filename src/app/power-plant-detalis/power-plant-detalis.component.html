@@ -1,47 +1,71 @@
-<div>
-  <div class="row">
-    <div class="column">
-      <span>Buildings</span>
-      <span>{{powerPlant.buildings | shortNumber: 2}}</span>
-    </div>
-    <div class="column">
-      <span>Level</span>
-      <span>{{powerPlant.level}}</span>
-    </div>
-    <div class="column">
-      <span>Engineers</span>
-      <span>{{powerPlant.engineers}}</span>
-    </div>
-    <div class="column">
-      <span>Free space</span>
-      <span>{{powerPlant.freeSpace()}}</span>
-    </div>
+<mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
+  <mat-grid-tile [colspan]="3" [rowspan]="2">
+    Buildings<br>
+    {{powerPlant.buildings | shortNumber: 2 : true}}
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3" [rowspan]="2">
+    Level<br>
+    {{powerPlant.level}}
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3" [rowspan]="2">
+    Engineers<br>
+    {{powerPlant.engineers}}
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3" [rowspan]="2">
+    Free space<br>
+    {{powerPlant.freeSpace()-powerPlant.buildings}}
+  </mat-grid-tile>
+  <div *ngIf="powerPlant.greenPrice">
+    <mat-grid-tile [colspan]="12" [rowspan]="1">Build price</mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="2">
+      Money
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="2">
+      {{powerPlant.buildPrice(multi) | shortNumber: 2 : true}}
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="2">
+      Green
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="2">
+      {{powerPlant.greenBuildPrice(multi) | shortNumber: 2 : true}}
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="12" [rowspan]="1">Upgrade price</mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="2">
+      Money
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="2">
+      {{powerPlant.upgradePrice(multi) | shortNumber: 2 : true}}
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="2">
+      Green
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="2">
+      {{powerPlant.greenUpgradePrice(multi) | shortNumber: 2 : true}}
+    </mat-grid-tile>
   </div>
-  <div class="row"><span>Build price</span></div>
-  <div class="row">
-    <div class="column">
-      <span>Money</span>
-      <span>{{powerPlant.buildPrice(1) | shortNumber: 2}}</span>
-    </div>
-    <div class="column" *ngIf="powerPlant.greenPrice">
-      <span>Green certyfication</span>
-      <span>{{powerPlant.greenBuildPrice(1) | shortNumber: 2}}</span>
-    </div>
+  <div *ngIf="!powerPlant.greenPrice">
+    <mat-grid-tile [colspan]="12" [rowspan]="1">Build price</mat-grid-tile>
+    <mat-grid-tile [colspan]="6" [rowspan]="1">
+      Money
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="6" [rowspan]="1">
+      {{powerPlant.buildPrice(multi) | shortNumber: 2 : true}}
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="12" [rowspan]="1">Upgrade price</mat-grid-tile>
+    <mat-grid-tile [colspan]="6" [rowspan]="1">
+      Money
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="6" [rowspan]="1">
+      {{powerPlant.upgradePrice(multi) | shortNumber: 2 : true}}
+    </mat-grid-tile>
   </div>
-  <div class="row"><span>Upgrade price</span></div>
-  <div class="row">
-    <div class="column">
-      <span>Money</span>
-      <span>{{powerPlant.upgradePrice(1) | shortNumber: 2}}</span>
-    </div>
-    <div class="column" *ngIf="powerPlant.greenPrice">
-      <span>Green certyfication</span>
-      <span>{{powerPlant.greenUpgradePrice(1) | shortNumber: 2}}</span>
-    </div>
-  </div>
-  <div class="row">
-    <button>Build</button>
-    <button>Upgrade</button>
-    <button>Hire</button>
-  </div>
-</div>
+  <mat-grid-tile [colspan]="4" [rowspan]="2" class="mat-app-background">
+    <button mat-raised-button color="primary" (click)="build()">Build</button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="4" [rowspan]="2" class="mat-app-background">
+    <button mat-raised-button color="primary" (click)="upgrade()">Upgrade</button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="4" [rowspan]="2" class="mat-app-background">
+    <button mat-raised-button color="primary" (click)="hire()">Hire</button>
+  </mat-grid-tile>
+</mat-grid-list>

@@ -1,28 +1,32 @@
 <div class="main">
   <div class="row">
     <div class="column">
-      <span>Money: {{resources.getResources('money') | shortNumber: 2}}</span>
-      <span>Green certyfiaction: {{resources.getResources('greenCertyfiaction') | shortNumber: 2}}</span>
-      <span>Workers: {{resources.getResources('workers') | shortNumber}}</span>
+      <span>Money: {{resources.money | shortNumber: 2}}</span>
+      <span>Green certyfiaction: {{resources.greenCertyfiaction | shortNumber: 2 : true}}</span>
+      <span title="1 Worker give you 0.2% more production!">Workers: {{resources.workers | shortNumber}}</span>
     </div>
     <div class="column">
-      <span>Electricty: {{resources.getResources('electricty')  | shortNumber: 2}}</span>
-      <span>Electricty price: {{resources.getResources('electrictyPrice')  | shortNumber: 2}}</span>
-      <button title="Sell all electricty">Sell</button>
+      <span>Energy: {{resources.energy  | shortNumber: 2}}</span>
+      <span>Energy price: {{resources.energyPrice  | shortNumber: 2}}</span>
+      <button title="Sell all energy" (click)="sellEnergy()">Sell</button>
     </div>
     <div class="column">
-      <button class="reset" title="For 2000 Power Plant you give 1 worker!">Reset</button>
+      <button class="reset" title="For 2000 Power Plant you give 1 worker!" (click)="reset()">Reset</button>
     </div>
   </div>
   <div class="row">
-    <button class="multi" (click)="onSelect(1)">1</button>
-    <button class="multi" (click)="onSelect(10)">10</button>
-    <button class="multi" (click)="onSelect(100)">100</button>
-    <button class="multi" (click)="onSelect(1000)">1K</button>
-    <button class="multi" (click)="onSelect(10000)">10K</button>
-    <button class="multi" (click)="onSelect(100000)">100K</button>
-    <button class="multi" (click)="onSelect(1000000)">1M</button>
-    <button class="multi" (click)="onSelect(10000000)">10M</button>
-    <button class="multi" (click)="onSelect(100000000)">100M</button>
+    <button class="multi" [ngClass]="{clicked: this.multi==1, click: this.multi != 1}" (click)="onSelect(1)">1</button>
+    <button class="multi" [ngClass]="{clicked: this.multi==10, click: this.multi != 10}" (click)="onSelect(10)">10</button>
+    <button class="multi" [ngClass]="{clicked: this.multi==100, click: this.multi != 100}" (click)="onSelect(100)">100</button>
+    <button class="multi" [ngClass]="{clicked: this.multi==1000, click: this.multi != 1000}" (click)="onSelect(1000)">1K</button>
+    <button class="multi" [ngClass]="{clicked: this.multi==10000, click: this.multi != 10000}" (click)="onSelect(10000)">10K</button>
+    <button class="multi" [ngClass]="{clicked: this.multi==100000, click: this.multi != 100000}" (click)="onSelect(100000)">100K</button>
+    <button class="multi" [ngClass]="{clicked: this.multi==1000000, click: this.multi != 1000000}" (click)="onSelect(1000000)">1M</button>
+    <button class="multi" [ngClass]="{clicked: this.multi==10000000, click: this.multi != 10000000}" (click)="onSelect(10000000)">10M</button>
+    <button class="multi" [ngClass]="{clicked: this.multi==100000000, click: this.multi != 100000000}" (click)="onSelect(100000000)">100M</button>
   </div>
+</div>
+<div class="detalis">
+    <span>Power plants: {{buildings()}}</span><br>
+    <span>Production: {{productionPerS()}}</span>
 </div>
