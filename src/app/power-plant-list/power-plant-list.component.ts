@@ -13,16 +13,17 @@ export class PowerPlantListComponent implements OnInit {
   powerPlants = POWERPLANTS;
   resources = resources;
   clickedID: number;
-  lastdivWidth = 0;
   divWidth = 0;
   columnNum = 20;
+  selected: number;
+  marginTop = 150;
+  marginBottom = 70;
   @Input() multi: number;
   @ViewChild('widgetParentDiv') parentDiv: ElementRef;
   @HostListener('window:resize') onresize() {
     if (this.parentDiv) {
       this.divWidth = this.parentDiv.nativeElement.clientWidth;
       this.columns();
-      console.log(this.columnNum);
     }
   }
 
@@ -37,16 +38,21 @@ export class PowerPlantListComponent implements OnInit {
   }
 
   columns() {
-    if (this.breakpointObserver.isMatched('(max-width: 599px)')) {
+    if (this.breakpointObserver.isMatched('(max-width: 635px)')) {
       this.columnNum = 4;
-    } else if (this.breakpointObserver.isMatched('(max-width: 899px)')) {
+      this.marginTop = 244;
+    } else if (this.breakpointObserver.isMatched('(max-width: 935px)')) {
       this.columnNum = 8;
-    } else if (this.breakpointObserver.isMatched('(max-width: 1249px)')){
+      this.marginTop = 150;
+    } else if (this.breakpointObserver.isMatched('(max-width: 1249px)')) {
       this.columnNum = 12;
-    } else if (this.breakpointObserver.isMatched('(max-width: 1599px)')){
+      this.marginTop = 150;
+    } else if (this.breakpointObserver.isMatched('(max-width: 1599px)')) {
       this.columnNum = 16;
+      this.marginTop = 150;
     } else {
       this.columnNum = 20;
+      this.marginTop = 150;
     }
   }
 

@@ -1,79 +1,21 @@
-.main{
-  width: 96%;
-  margin: 20px 2% 0px 2%;
-  display: flex;
-  flex-direction: column;
+.flex-spacer{
+  flex-grow: 1;
 }
 
-.row{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.column{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.top-toolbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
 }
 
 button{
-  height: 30px;
-  font-weight: bolder;
-  font-size: 1.05em;
-  color: burlywood;
-  background-color: black;
-  border: 2px solid burlywood;
-  border-radius: 5px;
+  min-width: 70px;
 }
 
-button:hover{
-  color: black;
-  background-color: burlywood;
-  border: 2px solid black;
-  border-radius: 5px;
-}
-
-.click{
-  color: burlywood;
-  background-color: black;
-  border: 2px solid burlywood;
-  border-radius: 5px;
-}
-
-.click:hover{
-  color: black;
-  background-color: burlywood;
-  border: 2px solid black;
-  border-radius: 5px;
-}
-
-button:focus{
-  outline: none;
-}
-
-.reset{
-  width: 100px;
-  height: 100%;
-}
-
-.multi{
-  margin-top: 20px;
-  width: 125px;
-}
-
-.clicked{
-  color: black;
-  background-color: burlywood;
-  border: 2px solid black;
-  border-radius: 5px;
-}
-
-.clicked:hover{
-  color: burlywood;
-  background-color: black;
-  border: 2px solid burlywood;
-  border-radius: 5px;
+.rrs span{
+  width: 156px;
+  display: flex;
+  justify-content: flex-end;
 }

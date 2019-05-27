@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
-  MatToolbarModule, MatListModule, MatButtonModule, MatCheckboxModule,
-  MatDividerModule, MatCardModule, MatGridListModule, MatTableModule, MatSidenavModule
+  MatToolbarModule, MatListModule, MatButtonModule, MatCheckboxModule, MatSelectModule, MatButtonToggleModule,
+  MatDividerModule, MatCardModule, MatGridListModule, MatTableModule, MatSidenavModule, MatIconModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -41,6 +41,9 @@ import { EventDetalisComponent } from './event-detalis/event-detalis.component';
     MatTableModule,
     LayoutModule,
     MatSidenavModule,
+    MatSelectModule,
+    MatButtonToggleModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

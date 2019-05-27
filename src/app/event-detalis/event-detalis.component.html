@@ -1,4 +1,9 @@
-<div>
-  <span>{{this.title}}</span><br>
-  <span>Time left: {{this.timeLeft}}</span>
-</div>
+<mat-sidenav-container class="top-toolbar">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>{{this.title}}</span>
+      <div class="flex-spacer"></div>
+      <span>Time left: {{this.timeLeft}}</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</mat-sidenav-container>

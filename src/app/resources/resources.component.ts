@@ -1,9 +1,10 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
 import { resources } from '../resources';
 import { timer } from 'rxjs';
 import { POWERPLANTS } from '../powerPlantList';
 import { ProductionEvent } from '../productionEvent';
 import { PRODUCTIONEVENTS } from '../productionEventsList';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-resources',
@@ -12,26 +13,63 @@ import { PRODUCTIONEVENTS } from '../productionEventsList';
 })
 
 export class ResourcesComponent implements OnInit {
-  multi = 1;
+  event: ProductionEvent;
   resources = resources;
   powerPlants = POWERPLANTS;
   productionEvents = PRODUCTIONEVENTS;
-  event: ProductionEvent;
-  constructor() { }
+  multi = 1;
+  selected: string;
+  divWidth = 0;
+  rwd = false;
+  productionS: number;
+  priceTime = 0;
+  @ViewChild('widgetParentDiv') parentDiv: ElementRef;
+  @HostListener('window:resize') onresize() {
+    if (this.parentDiv) {
+      this.divWidth = this.parentDiv.nativeElement.clientWidth;
+      this.toolbar();
+    }
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+
+  }
+  constructor(public breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
-    if (localStorage.length > 0) {
+    this.toolbar();
+    if (!localStorage.getItem('Resources')) {
+      localStorage.clear();
+    } else {
       resources.getStorage();
       POWERPLANTS.forEach((powerPlant) => {
         powerPlant.getStorage();
       });
+      this.multi = resources.multiplier;
+      this.offlineProduction();
     }
+    this.selected = this.multi.toString();
     const productionTimer = timer(100, 100);
-    const priceTimer = timer(100, 60000);
-    const eventTimer = timer(100, 120000);
+    const eventTimer = timer(100, 1000);
     productionTimer.subscribe(val => this.production());
-    priceTimer.subscribe(val => resources.changePrice());
-    eventTimer.subscribe(val => resources.changeEvent(resources.randomus(0, 150, 1)));
+    eventTimer.subscribe(val => {
+      if(this.priceTime >= 60 ){
+        resources.changePrice();
+        this.priceTime = 0;
+      } else {
+        this.priceTime++;
+      }
+      if(resources.eventTime - resources.eventWork <= 0){
+      this.event = resources.changeEvent(resources.randomus(0, 150, 1));
+      this.productionPerS();
+      resources.eventWork = 0;
+      } else {
+        resources.eventWork++;
+      }
+    });
+  }
+
+  ngAfterViewInit() {
+    setTimeout(_ => this.divWidth = this.parentDiv.nativeElement.clientWidth);
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -42,19 +80,26 @@ export class ResourcesComponent implements OnInit {
     });
   }
 
-  onSelect(value: number) {
-    resources.multiplier = value;
-    this.multi = value;
+  toolbar() {
+    if (this.breakpointObserver.isMatched('(max-width: 635px)')) {
+      this.rwd = true;
+    } else {
+      this.rwd = false;
+    }
+  }
+  onSelect() {
+    this.multi = parseInt(this.selected, 10);
+    resources.multiplier = this.multi;
   }
 
   production() {
     let tempProduction = 0;
     if (!this.event) {
-      POWERPLANTS.forEach((powerPlant) => {
+      this.powerPlants.forEach((powerPlant) => {
         tempProduction += powerPlant.production();
       });
     } else {
-      POWERPLANTS.forEach((powerPlant) => {
+      this.powerPlants.forEach((powerPlant) => {
         tempProduction += powerPlant.production(this.event);
       });
     }
@@ -78,7 +123,9 @@ export class ResourcesComponent implements OnInit {
     });
     resources.money = 5;
     resources.energy = 0;
+    resources.greenCertyfiaction = 0;
     resources.multiplier = 1;
+    resources.workers += Math.floor(Math.floor(temp / 2000) + Math.floor(tempEng * 0.4));
     resources.updateStorage();
   }
 
@@ -91,10 +138,22 @@ export class ResourcesComponent implements OnInit {
   }
 
   productionPerS() {
-    let temp = 0;
-    POWERPLANTS.forEach((powerPlant) => {
-      temp += powerPlant.production();
-    });
-    return temp * 10;
+    let tempProduction = 0;
+    if (!this.event) {
+      this.powerPlants.forEach((powerPlant) => {
+        tempProduction += powerPlant.production();
+      });
+    } else {
+      this.powerPlants.forEach((powerPlant) => {
+        tempProduction += powerPlant.production(this.event);
+      });
+    }
+    this.productionS = tempProduction * 10;
+    return this.productionS;
+  }
+
+  offlineProduction() {
+    const timeDiff = Number((Date.now() - resources.timeOffline) / 10000);
+    resources.energy += this.productionPerS() * timeDiff;
   }
 }

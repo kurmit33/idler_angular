@@ -1,32 +1,92 @@
-<div class="main">
-  <div class="row">
-    <div class="column">
-      <span>Money: {{resources.money | shortNumber: 2}}</span>
-      <span>Green certyfiaction: {{resources.greenCertyfiaction | shortNumber: 2 : true}}</span>
-      <span title="1 Worker give you 0.2% more production!">Workers: {{resources.workers | shortNumber}}</span>
-    </div>
-    <div class="column">
-      <span>Energy: {{resources.energy  | shortNumber: 2}}</span>
-      <span>Energy price: {{resources.energyPrice  | shortNumber: 2}}</span>
-      <button title="Sell all energy" (click)="sellEnergy()">Sell</button>
-    </div>
-    <div class="column">
-      <button class="reset" title="For 2000 Power Plant you give 1 worker!" (click)="reset()">Reset</button>
-    </div>
-  </div>
-  <div class="row">
-    <button class="multi" [ngClass]="{clicked: this.multi==1, click: this.multi != 1}" (click)="onSelect(1)">1</button>
-    <button class="multi" [ngClass]="{clicked: this.multi==10, click: this.multi != 10}" (click)="onSelect(10)">10</button>
-    <button class="multi" [ngClass]="{clicked: this.multi==100, click: this.multi != 100}" (click)="onSelect(100)">100</button>
-    <button class="multi" [ngClass]="{clicked: this.multi==1000, click: this.multi != 1000}" (click)="onSelect(1000)">1K</button>
-    <button class="multi" [ngClass]="{clicked: this.multi==10000, click: this.multi != 10000}" (click)="onSelect(10000)">10K</button>
-    <button class="multi" [ngClass]="{clicked: this.multi==100000, click: this.multi != 100000}" (click)="onSelect(100000)">100K</button>
-    <button class="multi" [ngClass]="{clicked: this.multi==1000000, click: this.multi != 1000000}" (click)="onSelect(1000000)">1M</button>
-    <button class="multi" [ngClass]="{clicked: this.multi==10000000, click: this.multi != 10000000}" (click)="onSelect(10000000)">10M</button>
-    <button class="multi" [ngClass]="{clicked: this.multi==100000000, click: this.multi != 100000000}" (click)="onSelect(100000000)">100M</button>
-  </div>
-</div>
-<div class="detalis">
-    <span>Power plants: {{buildings()}}</span><br>
-    <span>Production: {{productionPerS()}}</span>
+<div #widgetParentDiv>
+  <mat-sidenav-container class="top-toolbar">
+    <mat-toolbar color="primary" *ngIf="rwd" class="rrw">
+      <mat-toolbar-row>
+        <span>{{resources.money | shortNumber: 2}}</span>
+        <mat-icon title="Money">attach_money</mat-icon>
+        <div class="flex-spacer"></div>
+        <span>{{resources.greenCertyfiaction | shortNumber: 2 : true}} </span>
+        <mat-icon title="Green">assignment</mat-icon>
+        <div class="flex-spacer"></div>
+        <span title="One worker give you 0.2% more production">{{resources.workers | shortNumber: 2 : true}} </span>
+        <mat-icon title="One worker give you 0.2% more production">people</mat-icon>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <mat-form-field>
+          <mat-select [(value)]="selected" (closed)="onSelect()">
+            <mat-option value="1">Buy 1</mat-option>
+            <mat-option value="10">Buy 10</mat-option>
+            <mat-option value="100">Buy 100</mat-option>
+            <mat-option value="1000">Buy 1K</mat-option>
+            <mat-option value="10000">Buy 10K</mat-option>
+            <mat-option value="100000">Buy 100K</mat-option>
+            <mat-option value="1000000">Buy 1M</mat-option>
+            <mat-option value="10000000">Buy 10M</mat-option>
+            <mat-option value="100000000">Buy 100M</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="flex-spacer"></div>
+        <button mat-raised-button title="For 2000 Power Plant you give 1 worker!" (click)="reset()">Reset</button>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <span>Energy {{resources.energy  | shortNumber: 2}}</span>
+        <mat-icon>power</mat-icon>
+        <div class="flex-spacer"></div>
+        <span>Price {{resources.energyPrice  | shortNumber: 2}}</span>
+        <mat-icon>attach_money</mat-icon>
+        <div class="flex-spacer"></div>
+        <button mat-raised-button (click)="sellEnergy()">Sell</button>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <span>Production: {{productionPerS() | shortNumber: 2}}</span>
+        <mat-icon>power</mat-icon>
+        <div class="flex-spacer"></div>
+        <span>Buildings: {{buildings() | shortNumber: 2 : true}}</span>
+        <mat-icon>location_city</mat-icon>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-toolbar color="primary" *ngIf="!rwd" class="rrs">
+      <mat-toolbar-row>
+        <span>Money {{resources.money | shortNumber: 2}}</span>
+        <mat-icon>attach_money</mat-icon>
+        <div class="flex-spacer"></div>
+        <span>Green {{resources.greenCertyfiaction | shortNumber: 2 : true}} </span>
+        <mat-icon>assignment</mat-icon>
+        <div class="flex-spacer"></div>
+        <span title="One worker give you 0.2% more production">Workers {{resources.workers | shortNumber: 2 : true}} </span>
+        <mat-icon>people</mat-icon>
+        <div class="flex-spacer"></div>
+        <mat-form-field>
+          <mat-select [(value)]="selected" (closed)="onSelect()">
+            <mat-option value="1">Buy 1</mat-option>
+            <mat-option value="10">Buy 10</mat-option>
+            <mat-option value="100">Buy 100</mat-option>
+            <mat-option value="1000">Buy 1K</mat-option>
+            <mat-option value="10000">Buy 10K</mat-option>
+            <mat-option value="100000">Buy 100K</mat-option>
+            <mat-option value="1000000">Buy 1M</mat-option>
+            <mat-option value="10000000">Buy 10M</mat-option>
+            <mat-option value="100000000">Buy 100M</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="flex-spacer"></div>
+        <button mat-raised-button title="For 2000 Power Plant you give 1 worker!" (click)="reset()">Reset</button>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <span>Production: {{productionPerS() | shortNumber: 2}}</span>
+        <mat-icon>power</mat-icon>
+        <div class="flex-spacer"></div>
+        <span>Buildings: {{buildings() | shortNumber: 2 : true}}</span>
+        <mat-icon>location_city</mat-icon>
+        <div class="flex-spacer"></div>
+        <span>Energy {{resources.energy  | shortNumber: 2}}</span>
+        <mat-icon>power</mat-icon>
+        <div class="flex-spacer"></div>
+        <span>Price {{resources.energyPrice  | shortNumber: 2}}</span>
+        <mat-icon>attach_money</mat-icon>
+        <div class="flex-spacer"></div>
+        <button mat-raised-button (click)="sellEnergy()">Sell</button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </mat-sidenav-container>
 </div>

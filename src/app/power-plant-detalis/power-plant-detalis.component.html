@@ -17,46 +17,34 @@
   </mat-grid-tile>
   <div *ngIf="powerPlant.greenPrice">
     <mat-grid-tile [colspan]="12" [rowspan]="1">Build price</mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="2">
-      Money
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="2">
+    <mat-grid-tile [colspan]="6" [rowspan]="1">
       {{powerPlant.buildPrice(multi) | shortNumber: 2 : true}}
+      <mat-icon>attach_money</mat-icon>
     </mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="2">
-      Green
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="2">
+    <mat-grid-tile [colspan]="6" [rowspan]="1">
       {{powerPlant.greenBuildPrice(multi) | shortNumber: 2 : true}}
+      <mat-icon>assignment</mat-icon>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="12" [rowspan]="1">Upgrade price</mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="2">
-      Money
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="2">
+    <mat-grid-tile [colspan]="6" [rowspan]="1">
       {{powerPlant.upgradePrice(multi) | shortNumber: 2 : true}}
+      <mat-icon>attach_money</mat-icon>
     </mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="2">
-      Green
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="2">
+    <mat-grid-tile [colspan]="6" [rowspan]="1">
       {{powerPlant.greenUpgradePrice(multi) | shortNumber: 2 : true}}
+      <mat-icon>assignment</mat-icon>
     </mat-grid-tile>
   </div>
   <div *ngIf="!powerPlant.greenPrice">
     <mat-grid-tile [colspan]="12" [rowspan]="1">Build price</mat-grid-tile>
-    <mat-grid-tile [colspan]="6" [rowspan]="1">
-      Money
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="6" [rowspan]="1">
+    <mat-grid-tile [colspan]="12" [rowspan]="1">
       {{powerPlant.buildPrice(multi) | shortNumber: 2 : true}}
+      <mat-icon>attach_money</mat-icon>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="12" [rowspan]="1">Upgrade price</mat-grid-tile>
-    <mat-grid-tile [colspan]="6" [rowspan]="1">
-      Money
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="6" [rowspan]="1">
+    <mat-grid-tile [colspan]="12" [rowspan]="1">
       {{powerPlant.upgradePrice(multi) | shortNumber: 2 : true}}
+      <mat-icon>attach_money</mat-icon>
     </mat-grid-tile>
   </div>
   <mat-grid-tile [colspan]="4" [rowspan]="2" class="mat-app-background">

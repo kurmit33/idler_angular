@@ -1,6 +1,7 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { resources } from '../resources';
 import { timer } from 'rxjs';
+import { ProductionEvent } from '../productionEvent';
 
 @Component({
   selector: 'app-event-detalis',
@@ -8,8 +9,8 @@ import { timer } from 'rxjs';
   styleUrls: ['./event-detalis.component.css']
 })
 export class EventDetalisComponent implements OnInit {
-  multi = 0;
-  title = '';
+  event: ProductionEvent;
+  title: string;
   timeLeft: number;
 
   constructor() { }
@@ -17,14 +18,12 @@ export class EventDetalisComponent implements OnInit {
   ngOnInit() {
     const look = timer(100, 1000);
     look.subscribe(val => this.eventChange());
-
   }
 
   eventChange() {
-    if (this.multi !== resources.multiplierEvents || this.title !== resources.titleEvents || this.timeLeft <= 0) {
-      this.multi = resources.multiplierEvents;
-      this.title = resources.titleEvents;
-      this.timeLeft = 120;
+    if (this.event !== resources.event) {
+      this.title = resources.event.title;
+      this.timeLeft = resources.eventTime - resources.eventWork;
     } else {
       this.timeLeft--;
     }

@@ -18,7 +18,7 @@ export class ProductionEvent {
 
   randomus(mini: number, maxi: number, multi: number): number {
     let temp: number;
-    temp = Number(Math.floor(Math.random() * (maxi - mini ) + mini ) * multi);
+    temp = Number(Math.floor(Math.random() * (maxi - mini) + mini) * multi);
     return temp;
   }
 
@@ -31,7 +31,7 @@ export class ProductionEvent {
       this.title = this.nameTitle + this.lessOrMore + multiTitle;
       return true;
     } else if (num >= 100) {
-      return  false;
+      return false;
     } else {
       return false;
     }
@@ -43,7 +43,7 @@ export class ProductionEvent {
       return this.randomus(10, 50, 0.01);
     } else {
       this.lessOrMore = 'less energy. The multiplier is ';
-      return  -(this.randomus(10, 50, 0.01));
+      return -(this.randomus(10, 50, 0.01));
     }
   }
 }

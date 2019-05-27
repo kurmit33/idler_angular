@@ -29,14 +29,14 @@ export class PowerPlant {
   production(event?: ProductionEvent) {
     const startProduction: number = (this.buildings * this.productionMultiplier * (this.level + 1));
     const tempProduction = startProduction + (startProduction * this.engineers * 0.02) +
-    (startProduction * resources.workers * 0.001);
+      (startProduction * resources.workers * 0.001);
     if (!event) {
       return tempProduction;
     } else {
       if (this.name === event.name) {
-        return  tempProduction + (tempProduction * event.multi);
+        return tempProduction + (tempProduction * event.multi);
       } else {
-        return  tempProduction;
+        return tempProduction;
       }
     }
   }

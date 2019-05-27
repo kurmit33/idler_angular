@@ -1,4 +1,6 @@
 import { PRODUCTIONEVENTS } from './productionEventsList';
+import { ProductionEvent } from './productionEvent';
+import { timeout } from 'q';
 
 class Resources {
   public money = 5;
@@ -8,8 +10,10 @@ class Resources {
   public energyPrice = 0;
   public name = 'Resources';
   public multiplier = 1;
-  public multiplierEvents = 0 ;
-  public titleEvents: string;
+  public event: ProductionEvent;
+  public eventTime = 120;
+  public eventWork = 0;
+  public timeOffline;
 
   randomus(mini: number, maxi: number, multi: number): number {
     return Math.floor(Math.random() * (maxi - mini ) + mini ) * multi;
@@ -25,6 +29,7 @@ class Resources {
   }
 
   updateStorage() {
+    this.timeOffline = Date.now();
     localStorage.setItem(this.name, JSON.stringify(this));
   }
 
@@ -33,13 +38,13 @@ class Resources {
     Object.assign(this, items);
   }
 
-  changeEvent(num: number) {
-    this.titleEvents = 'No Events!';
-    this.multiplierEvents = 0;
+  changeEvent(num: number): any {
     PRODUCTIONEVENTS.forEach((productionEvent) => {
       if (productionEvent.isOn(num)) {
-        this.multiplierEvents = productionEvent.multi;
-        this.titleEvents = productionEvent.title;
+        this.event = productionEvent;
+        return this.event;
+      } else {
+        return PRODUCTIONEVENTS[10];
       }
     });
   }
