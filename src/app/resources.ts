@@ -10,7 +10,7 @@ class Resources {
   public energyPrice = 0;
   public name = 'Resources';
   public multiplier = 1;
-  public event: ProductionEvent;
+  public event = PRODUCTIONEVENTS[10];
   public eventTime = 120;
   public eventWork = 0;
   public timeOffline;

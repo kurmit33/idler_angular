@@ -16,7 +16,7 @@ export class PowerPlantListComponent implements OnInit {
   divWidth = 0;
   columnNum = 20;
   selected: number;
-  marginTop = 150;
+  marginTop = 130;
   marginBottom = 70;
   @Input() multi: number;
   @ViewChild('widgetParentDiv') parentDiv: ElementRef;
@@ -40,19 +40,23 @@ export class PowerPlantListComponent implements OnInit {
   columns() {
     if (this.breakpointObserver.isMatched('(max-width: 635px)')) {
       this.columnNum = 4;
-      this.marginTop = 244;
+      if (this.breakpointObserver.isMatched('(max-width: 550px)')) {
+      this.marginTop = 114;
+      } else {
+        this.marginTop = 130;
+      }
     } else if (this.breakpointObserver.isMatched('(max-width: 935px)')) {
       this.columnNum = 8;
-      this.marginTop = 150;
+      this.marginTop = 130;
     } else if (this.breakpointObserver.isMatched('(max-width: 1249px)')) {
       this.columnNum = 12;
-      this.marginTop = 150;
+      this.marginTop = 130;
     } else if (this.breakpointObserver.isMatched('(max-width: 1599px)')) {
       this.columnNum = 16;
-      this.marginTop = 150;
+      this.marginTop = 130;
     } else {
       this.columnNum = 20;
-      this.marginTop = 150;
+      this.marginTop = 130;
     }
   }
 

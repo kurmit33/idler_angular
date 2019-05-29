@@ -1,10 +1,12 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, SimpleChanges, Input } from '@angular/core';
 import { resources } from '../resources';
-import { timer } from 'rxjs';
+import { timer, Observable } from 'rxjs';
 import { POWERPLANTS } from '../powerPlantList';
 import { ProductionEvent } from '../productionEvent';
 import { PRODUCTIONEVENTS } from '../productionEventsList';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Store, select } from '@ngrx/store';
+import { Reset, Zero } from '../sell.actions';
 
 @Component({
   selector: 'app-resources',
@@ -23,6 +25,7 @@ export class ResourcesComponent implements OnInit {
   rwd = false;
   productionS: number;
   priceTime = 0;
+  sell$: Observable<number>;
   @ViewChild('widgetParentDiv') parentDiv: ElementRef;
   @HostListener('window:resize') onresize() {
     if (this.parentDiv) {
@@ -31,9 +34,10 @@ export class ResourcesComponent implements OnInit {
     }
   }
   ngOnChanges(changes: SimpleChanges): void {
-
   }
-  constructor(public breakpointObserver: BreakpointObserver) { }
+  constructor(public breakpointObserver: BreakpointObserver, private store: Store<{sell: number}>) {
+    this.sell$ = store.pipe(select('sell'));
+  }
 
   ngOnInit() {
     this.toolbar();
@@ -50,18 +54,21 @@ export class ResourcesComponent implements OnInit {
     this.selected = this.multi.toString();
     const productionTimer = timer(100, 100);
     const eventTimer = timer(100, 1000);
-    productionTimer.subscribe(val => this.production());
+    productionTimer.subscribe(val => {
+      resources.energy += this.production();
+      this.productionS = this.production() * 10;
+    });
     eventTimer.subscribe(val => {
-      if(this.priceTime >= 60 ){
+      if (this.priceTime >= 60) {
         resources.changePrice();
         this.priceTime = 0;
       } else {
         this.priceTime++;
       }
-      if(resources.eventTime - resources.eventWork <= 0){
-      this.event = resources.changeEvent(resources.randomus(0, 150, 1));
-      this.productionPerS();
-      resources.eventWork = 0;
+      if (resources.eventTime - resources.eventWork <= 0) {
+        this.event = resources.changeEvent(resources.randomus(0, 150, 1));
+        resources.eventWork = 0;
+        this.productionS = this.production() * 10;
       } else {
         resources.eventWork++;
       }
@@ -94,20 +101,15 @@ export class ResourcesComponent implements OnInit {
 
   production() {
     let tempProduction = 0;
-    if (!this.event) {
-      this.powerPlants.forEach((powerPlant) => {
-        tempProduction += powerPlant.production();
-      });
-    } else {
-      this.powerPlants.forEach((powerPlant) => {
-        tempProduction += powerPlant.production(this.event);
-      });
-    }
-    resources.energy += tempProduction;
+    this.powerPlants.forEach((powerPlant) => {
+      tempProduction += powerPlant.production(resources.event);
+    });
+    return tempProduction;
   }
 
   sellEnergy() {
     resources.sellResources();
+    this.store.dispatch(new Reset());
   }
 
   reset() {
@@ -125,8 +127,9 @@ export class ResourcesComponent implements OnInit {
     resources.energy = 0;
     resources.greenCertyfiaction = 0;
     resources.multiplier = 1;
-    resources.workers += Math.floor(Math.floor(temp / 2000) + Math.floor(tempEng * 0.4));
+    resources.workers += Math.floor(Math.floor(temp / 2000) + Math.floor(tempEng * 0.5));
     resources.updateStorage();
+    this.store.dispatch(new Zero());
   }
 
   buildings() {
@@ -137,23 +140,8 @@ export class ResourcesComponent implements OnInit {
     return temp;
   }
 
-  productionPerS() {
-    let tempProduction = 0;
-    if (!this.event) {
-      this.powerPlants.forEach((powerPlant) => {
-        tempProduction += powerPlant.production();
-      });
-    } else {
-      this.powerPlants.forEach((powerPlant) => {
-        tempProduction += powerPlant.production(this.event);
-      });
-    }
-    this.productionS = tempProduction * 10;
-    return this.productionS;
-  }
-
   offlineProduction() {
-    const timeDiff = Number((Date.now() - resources.timeOffline) / 10000);
-    resources.energy += this.productionPerS() * timeDiff;
+    const timeDiff = Number((Date.now() - resources.timeOffline) / 1000);
+    resources.energy += this.production() * timeDiff;
   }
 }

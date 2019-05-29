@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { sellReducer } from './sell.reducer';
 
 import {
   MatToolbarModule, MatListModule, MatButtonModule, MatCheckboxModule, MatSelectModule, MatButtonToggleModule,
-  MatDividerModule, MatCardModule, MatGridListModule, MatTableModule, MatSidenavModule, MatIconModule
+  MatDividerModule, MatCardModule, MatGridListModule, MatTableModule, MatSidenavModule, MatIconModule, MatMenuModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -16,7 +17,7 @@ import { PowerPlantDetalisComponent } from './power-plant-detalis/power-plant-de
 import { ResourcesComponent } from './resources/resources.component';
 import { ShortNumberPipe } from './pipes/short-number.pipe';
 import { EventDetalisComponent } from './event-detalis/event-detalis.component';
-
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,8 @@ import { EventDetalisComponent } from './event-detalis/event-detalis.component';
     MatSelectModule,
     MatButtonToggleModule,
     MatIconModule,
+    MatMenuModule,
+    StoreModule.forRoot({ sell: sellReducer }),
   ],
   providers: [],
   bootstrap: [AppComponent]

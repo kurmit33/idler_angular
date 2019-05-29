@@ -48,12 +48,12 @@
     </mat-grid-tile>
   </div>
   <mat-grid-tile [colspan]="4" [rowspan]="2" class="mat-app-background">
-    <button mat-raised-button color="primary" (click)="build()">Build</button>
+    <button mat-raised-button color="primary" (click)="build()" disabled="{{buildButton}}">Build</button>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="4" [rowspan]="2" class="mat-app-background">
-    <button mat-raised-button color="primary" (click)="upgrade()">Upgrade</button>
+    <button mat-raised-button color="primary" (click)="upgrade()" disabled="{{upgradeButton}}">Upgrade</button>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="4" [rowspan]="2" class="mat-app-background">
-    <button mat-raised-button color="primary" (click)="hire()">Hire</button>
+    <button mat-raised-button color="primary" (click)="hire()" disabled="{{hireButton}}">Hire</button>
   </mat-grid-tile>
 </mat-grid-list>
