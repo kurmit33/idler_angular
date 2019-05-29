@@ -89,13 +89,13 @@ export class PowerPlantDetalisComponent implements OnInit {
     if (this.powerPlant.greenBuildPrice) {
       if ((this.powerPlant.upgradePrice(this.multi) <= resources.money)
         && (this.powerPlant.greenUpgradePrice(this.multi) <= resources.greenCertyfiaction)
-        && (this.powerPlant.buildings >= this.powerPlant.level * 25)) {
+        && (this.powerPlant.buildings >= (this.powerPlant.level + 1) * 25)) {
         this.upgradeButton = 'false';
       } else {
         this.upgradeButton = 'true';
       }
     } else {
-      if ((this.powerPlant.upgradePrice(this.multi) <= resources.money) && (this.powerPlant.buildings >= this.powerPlant.level * 25)) {
+      if ((this.powerPlant.upgradePrice(this.multi) <= resources.money) && (this.powerPlant.buildings >= (this.powerPlant.level + 1) * 25)) {
         this.upgradeButton = 'false';
       } else {
         this.upgradeButton = 'true';
