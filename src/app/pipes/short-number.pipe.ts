@@ -15,6 +15,16 @@ export class ShortNumberPipe implements PipeTransform {
       'kTk', 'kTM', 'kTG', 'kTT', 'kTP', 'kTE', 'kPk', 'kPM', 'kPG', 'kPT', 'kPP', 'kPE',
       'kEk', 'kEM', 'kEG', 'kET', 'kEP', 'kEE', 'Mkk', 'MkM', 'MkG', 'MkT', 'MkP', 'MkE',
       'MMk', 'MMM', 'MMG', 'MMT', 'MMP', 'MME', 'MGk', 'MGM', 'MGG', 'MGT', 'MGP', 'MGE',
+      'MTk', 'MTM', 'MTG', 'MTT', 'MTP', 'MTE', 'MPk', 'MPM', 'MPG', 'MPT', 'MPP', 'MPE',
+      'MTk', 'MTM', 'MTG', 'MTT', 'MTP', 'MTE', 'MPk', 'MPM', 'MPG', 'MPT', 'MPP', 'MPE',
+      'MTk', 'MTM', 'MTG', 'MTT', 'MTP', 'MTE', 'MPk', 'MPM', 'MPG', 'MPT', 'MPP', 'MPE',
+      'MTk', 'MTM', 'MTG', 'MTT', 'MTP', 'MTE', 'MPk', 'MPM', 'MPG', 'MPT', 'MPP', 'MPE',
+      'MTk', 'MTM', 'MTG', 'MTT', 'MTP', 'MTE', 'MPk', 'MPM', 'MPG', 'MPT', 'MPP', 'MPE',
+      'MTk', 'MTM', 'MTG', 'MTT', 'MTP', 'MTE', 'MPk', 'MPM', 'MPG', 'MPT', 'MPP', 'MPE',
+      'MTk', 'MTM', 'MTG', 'MTT', 'MTP', 'MTE', 'MPk', 'MPM', 'MPG', 'MPT', 'MPP', 'MPE',
+      'MTk', 'MTM', 'MTG', 'MTT', 'MTP', 'MTE', 'MPk', 'MPM', 'MPG', 'MPT', 'MPP', 'MPE',
+      'MTk', 'MTM', 'MTG', 'MTT', 'MTP', 'MTE', 'MPk', 'MPM', 'MPG', 'MPT', 'MPP', 'MPE',
+      'MTk', 'MTM', 'MTG', 'MTT', 'MTP', 'MTE', 'MPk', 'MPM', 'MPG', 'MPT', 'MPP', 'MPE',
       'MTk', 'MTM', 'MTG', 'MTT', 'MTP', 'MTE', 'MPk', 'MPM', 'MPG', 'MPT', 'MPP', 'MPE',];
 
     if (Number.isNaN(input)) {
@@ -31,7 +41,7 @@ export class ShortNumberPipe implements PipeTransform {
 
 
     exp = Math.floor(Math.log(input) / Math.log(1000));
-
+    if (isNaN(input / Math.pow(1000, exp))) return "You're not Edison";
     return (input / Math.pow(1000, exp)).toFixed(args) + suffixes[exp - 1];
   }
 }

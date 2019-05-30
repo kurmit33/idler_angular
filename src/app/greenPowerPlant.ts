@@ -4,8 +4,10 @@ import { resources } from './resources';
 
 export class GreenPowerPlant extends PowerPlant {
   public logoImage = 'assets/image/green-energy.jpg';
+  public multi;
   constructor(id: number, name: string, multi: number, img: string) {
     super(id, name, multi, multi * 0.01, img);
+    this.multi = multi;
   }
 
   build(num: number) {
@@ -13,7 +15,7 @@ export class GreenPowerPlant extends PowerPlant {
       if ( resources.money >= this.buildPrice(num)) {
         resources.money -= this.buildPrice(num);
         this.buildings += num;
-        resources.greenCertyfiaction += num;
+        resources.greenCertyfiaction += (this.multi * num);
       }
     }
   }

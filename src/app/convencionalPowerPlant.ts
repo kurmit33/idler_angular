@@ -8,11 +8,15 @@ export class ConvencionalPowerPlant extends PowerPlant {
   }
 
   greenBuildPrice(num: number) {
-    return num * (this.buildings + 1) * this.priceMultiplier;
+    let temp = num * (this.buildings + 1) * this.priceMultiplier;
+    if (Number.isNaN(temp)) return 9007199254740991;
+    else return temp;
   }
 
   greenUpgradePrice(num: number) {
-    return num * (this.level + 1) * this.priceMultiplier * 50;
+    let temp = num * (this.level + 1) * this.priceMultiplier * 50;
+    if (Number.isNaN(temp)) return 9007199254740991;
+    else return temp;
   }
 
   build(num: number) {

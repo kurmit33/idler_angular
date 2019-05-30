@@ -20,7 +20,7 @@ class Resources {
   }
 
   changePrice() {
-    this.energyPrice = this.randomus(10, 25, 0.01);
+    this.energyPrice = this.randomus(10, 35, 0.01);
   }
 
   sellResources() {
