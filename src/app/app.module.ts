@@ -3,12 +3,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { sellReducer } from './sell.reducer';
 
 import {
-  MatToolbarModule, MatListModule, MatButtonModule, MatCheckboxModule, MatSelectModule, MatButtonToggleModule,
-  MatDividerModule, MatCardModule, MatGridListModule, MatTableModule, MatSidenavModule, MatIconModule, MatMenuModule
+  MatToolbarModule, MatListModule, MatButtonModule, MatCheckboxModule, MatSelectModule, MatButtonToggleModule, MatSlideToggleModule,
+  MatDividerModule, MatCardModule, MatGridListModule, MatTableModule, MatSidenavModule, MatIconModule, MatMenuModule, MatSliderModule,
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,8 @@ import { ResourcesComponent } from './resources/resources.component';
 import { ShortNumberPipe } from './pipes/short-number.pipe';
 import { EventDetalisComponent } from './event-detalis/event-detalis.component';
 import { StoreModule } from '@ngrx/store';
+import { AccumulatorDetalisComponent } from './accumulator-detalis/accumulator-detalis.component';
+import { OfficeDetalisComponent } from './office-detalis/office-detalis.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import { StoreModule } from '@ngrx/store';
     PowerPlantDetalisComponent,
     ResourcesComponent,
     ShortNumberPipe,
-    EventDetalisComponent
+    EventDetalisComponent,
+    AccumulatorDetalisComponent,
+    OfficeDetalisComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +51,9 @@ import { StoreModule } from '@ngrx/store';
     MatButtonToggleModule,
     MatIconModule,
     MatMenuModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    FormsModule,
     StoreModule.forRoot({ sell: sellReducer }),
   ],
   providers: [],

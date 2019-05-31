@@ -2,6 +2,8 @@ import { Component, OnInit, Input, HostListener, ViewChild, ElementRef } from '@
 import { POWERPLANTS } from '../powerPlantList';
 import { resources } from '../resources';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { accu } from '../acumulators';
+import { office } from '../office';
 
 @Component({
   selector: 'app-power-plant-list',
@@ -12,6 +14,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 export class PowerPlantListComponent implements OnInit {
   powerPlants = POWERPLANTS;
   resources = resources;
+  accu = accu;
+  office = office;
   clickedID: number;
   divWidth = 0;
   columnNum = 20;

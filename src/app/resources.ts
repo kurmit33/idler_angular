@@ -1,6 +1,4 @@
 import { PRODUCTIONEVENTS } from './productionEventsList';
-import { ProductionEvent } from './productionEvent';
-import { timeout } from 'q';
 
 class Resources {
   public money = 5;
@@ -23,9 +21,14 @@ class Resources {
     this.energyPrice = this.randomus(10, 35, 0.01);
   }
 
-  sellResources() {
-    this.money += this.energy * this.energyPrice;
-    this.energy = 0;
+  sellResources(num: any) {
+    if(!num){
+      this.money += this.energy * this.energyPrice;
+      this.energy = 0;
+    } else {
+      this.money += num * this.energyPrice;
+      this.energy -= num;
+    }
   }
 
   updateStorage() {

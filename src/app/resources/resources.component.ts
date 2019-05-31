@@ -7,6 +7,8 @@ import { PRODUCTIONEVENTS } from '../productionEventsList';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Store, select } from '@ngrx/store';
 import { Reset, Zero } from '../sell.actions';
+import { accu } from '../acumulators';
+import { office } from '../office';
 
 @Component({
   selector: 'app-resources',
@@ -55,7 +57,11 @@ export class ResourcesComponent implements OnInit {
     const productionTimer = timer(100, 100);
     const eventTimer = timer(100, 1000);
     productionTimer.subscribe(val => {
+      if (resources.energy + this.production() <= accu.maxEnergy()) {
       resources.energy += this.production();
+      } else {
+        resources.energy = accu.maxEnergy();
+      }
       this.productionS = this.production() * 10;
     });
     eventTimer.subscribe(val => {
@@ -85,6 +91,8 @@ export class ResourcesComponent implements OnInit {
     POWERPLANTS.forEach((powerPlant) => {
       powerPlant.updateStorage();
     });
+    accu.updateStorage();
+    office.updateStorage();
   }
 
   toolbar() {
@@ -108,7 +116,7 @@ export class ResourcesComponent implements OnInit {
   }
 
   sellEnergy() {
-    resources.sellResources();
+    resources.sellResources(false);
     this.store.dispatch(new Reset());
   }
 
@@ -123,12 +131,18 @@ export class ResourcesComponent implements OnInit {
       powerPlant.engineers = 0;
       powerPlant.updateStorage();
     });
+    temp += accu.buildings;
+    temp += office.buildings;
     resources.money = 5;
     resources.energy = 0;
     resources.greenCertyfiaction = 0;
     resources.multiplier = 1;
     resources.workers += Math.floor(Math.floor(temp / 2000) + Math.floor(tempEng * 0.5));
     resources.updateStorage();
+    accu.buildings = 0;
+    accu.level = 0;
+    office.buildings = 0;
+    office.level = 0;
     this.store.dispatch(new Zero());
   }
 

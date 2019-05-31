@@ -11,21 +11,17 @@ export class GreenPowerPlant extends PowerPlant {
   }
 
   build(num: number) {
-    if (this.freeSpace() >= (this.buildings + num)) {
-      if ( resources.money >= this.buildPrice(num)) {
-        resources.money -= this.buildPrice(num);
-        this.buildings += num;
-        resources.greenCertyfiaction += (this.multi * num);
-      }
+    if ((this.freeSpace() >= num) && (resources.money >= this.buildPrice(num))) {
+      resources.money -= this.buildPrice(num);
+      this.buildings += num;
+      resources.greenCertyfiaction += (this.multi * num);
     }
   }
 
   upgrade(num: number) {
-    if (this.buildings >= (this.freeSpace() / 80)) {
-      if (resources.money >= this.upgradePrice(num)) {
-        resources.money -= this.upgradePrice(num);
-        this.level += num;
-      }
+    if ((this.buildings >= ((this.freeSpace() + this.buildings) / 80)) && (resources.money >= this.upgradePrice(num))) {
+      resources.money -= this.upgradePrice(num);
+      this.level += num;
     }
   }
 }

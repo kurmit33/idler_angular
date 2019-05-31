@@ -24,7 +24,7 @@ export class PowerPlant {
 
   freeSpace() {
 
-    return 2000 * (this.level + 1);
+    return (2000 * (this.level + 1) - this.buildings);
   }
 
   production(event?: ProductionEvent) {
@@ -45,10 +45,7 @@ export class PowerPlant {
   buildPrice(num: number) {
     const lastPrice = (this.priceMultiplier * (7 * this.buildings + 3 * Math.pow(this.buildings, 2))) / 2;
     const newPrice = (this.priceMultiplier * (7 * (this.buildings + num) + 3 * Math.pow((this.buildings + num), 2))) / 2;
-    if (newPrice - lastPrice >= 9007199254740991) {
-      return newPrice - lastPrice;
-    }
-    else return newPrice - lastPrice;
+    return newPrice - lastPrice;
   }
   greenBuildPrice(num: number) {
     return null;
@@ -61,8 +58,7 @@ export class PowerPlant {
   upgradePrice(num: number) {
     const lastPrice = 250 * this.priceMultiplier * ((1 - Math.pow(2, this.level)) * (-1));
     const newPrice = 250 * this.priceMultiplier * ((1 - Math.pow(2, this.level + num)) * (-1));
-    if(Number.isNaN(newPrice) || isNaN(lastPrice)) return 99999;
-    else return newPrice - lastPrice;
+    return newPrice - lastPrice;
   }
 
   hire(num: number) {

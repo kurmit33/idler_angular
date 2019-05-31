@@ -8,19 +8,17 @@ export class ConvencionalPowerPlant extends PowerPlant {
   }
 
   greenBuildPrice(num: number) {
-    let temp = num * (this.buildings + 1) * this.priceMultiplier;
-    if (Number.isNaN(temp)) return 9007199254740991;
-    else return temp;
+    const temp = num * (this.buildings + 1) * this.priceMultiplier;
+    return temp;
   }
 
   greenUpgradePrice(num: number) {
-    let temp = num * (this.level + 1) * this.priceMultiplier * 50;
-    if (Number.isNaN(temp)) return 9007199254740991;
-    else return temp;
+    const temp = num * (this.level + 1) * this.priceMultiplier * 50;
+    return temp;
   }
 
   build(num: number) {
-    if (this.freeSpace() >= (this.buildings + num)) {
+    if (this.freeSpace() >= num) {
       if ((resources.money >= this.buildPrice(num))
       && (resources.greenCertyfiaction >= this.greenBuildPrice(num))) {
         resources.money -= this.buildPrice(num);
@@ -31,7 +29,7 @@ export class ConvencionalPowerPlant extends PowerPlant {
   }
 
   upgrade(num: number) {
-    if (this.buildings >= (this.freeSpace() / 80)) {
+    if (this.buildings >= ((this.freeSpace() + this.buildings) / 80)) {
       if ((resources.money >= this.upgradePrice(num))
       && (resources.greenCertyfiaction >= this.greenUpgradePrice(num))) {
         resources.money -= this.upgradePrice(num);

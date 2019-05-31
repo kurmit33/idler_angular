@@ -37,7 +37,7 @@ export class PowerPlantDetalisComponent implements OnInit {
     const eventTimer = timer(100, 100);
     eventTimer.subscribe(val => {
       this.num = Number(this.sell$);
-      if (this.lastSellState != this.num) {
+      if (this.lastSellState !== this.num) {
         this.buildTest();
         this.upgradeTest();
         this.hireTest();
@@ -63,7 +63,8 @@ export class PowerPlantDetalisComponent implements OnInit {
   buildTest() {
     if (this.powerPlant.greenBuildPrice) {
       if ((this.powerPlant.buildPrice(this.multi) <= resources.money)
-        && (this.powerPlant.greenBuildPrice(this.multi) <= resources.greenCertyfiaction)) {
+        && (this.powerPlant.greenBuildPrice(this.multi) <= resources.greenCertyfiaction)
+        && (this.powerPlant.buildings + this.multi <=  this.powerPlant.freeSpace())) {
         this.buildButton = 'false';
       } else {
         this.buildButton = 'true';
@@ -95,7 +96,8 @@ export class PowerPlantDetalisComponent implements OnInit {
         this.upgradeButton = 'true';
       }
     } else {
-      if ((this.powerPlant.upgradePrice(this.multi) <= resources.money) && (this.powerPlant.buildings >= (this.powerPlant.level + 1) * 25)) {
+      if ((this.powerPlant.upgradePrice(this.multi) <= resources.money)
+        && (this.powerPlant.buildings >= (this.powerPlant.level + 1) * 25)) {
         this.upgradeButton = 'false';
       } else {
         this.upgradeButton = 'true';
