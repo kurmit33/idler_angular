@@ -9,7 +9,7 @@
   </mat-grid-tile>
   <mat-grid-tile [colspan]="4" [rowspan]="2">
     Free space<br>
-    {{accu.freeSpace()}}
+    {{accu.freeSpace() - accu.buildings}}
   </mat-grid-tile>
   <mat-grid-tile [colspan]="12" [rowspan]="1">
     Build price

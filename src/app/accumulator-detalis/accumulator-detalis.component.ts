@@ -54,7 +54,7 @@ export class AccumulatorDetalisComponent implements OnInit {
 
   buildTest() {
     if ((resources.money >= accu.buildPrice(this.multi))
-      && (this.multi <= this.accu.freeSpace())) {
+      && (this.multi + accu.buildings <= accu.freeSpace())) {
       this.buildButton = 'false';
     } else {
       this.buildButton = 'true';
@@ -63,7 +63,7 @@ export class AccumulatorDetalisComponent implements OnInit {
 
   upgradeTest() {
     if ((resources.money >= accu.upgradePrice(this.multi))
-      && (this.accu.freeSpace() <= (this.accu.freeSpace() + this.accu.buildings) / 2)) {
+      && ((5 + 5 * (this.multi + accu.level) * (this.multi + accu.level)) / 2 <= accu.buildings)) {
       this.upgradeButton = 'false';
     } else {
       this.upgradeButton = 'true';

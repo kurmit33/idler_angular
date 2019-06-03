@@ -11,14 +11,11 @@
         <span title="One worker give you 0.2% more production">{{resources.workers | shortNumber: 2 : true}} </span>
         <mat-icon title="One worker give you 0.2% more production">people</mat-icon>
         <div class="flex-spacer"></div>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>more_vert</mat-icon>
+        <button mat-raised-button [matMenuTriggerFor]="rootMenu" color="basic">
+          Options
         </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item disabled>
-            <button mat-raised-button title="For 2000 Power Plant you give 1 worker!" (click)="reset()"
-              color="warn">Reset</button>
-          </button>
+        <mat-menu #rootMenu="matMenu">
+          <button mat-menu-item [matMenuTriggerFor]="subMenu">{{multi | shortNumber: 0}}</button>
           <button mat-menu-item disabled>
             <span>Buildings: {{buildings() | shortNumber: 2 : true}}</span>
             <mat-icon>location_city</mat-icon>
@@ -28,20 +25,29 @@
             <mat-icon>power</mat-icon>
           </button>
           <button mat-menu-item disabled>
-            <mat-form-field>
-              <mat-select [(value)]="selected" (closed)="onSelect()">
-                <mat-option value="1">Buy 1</mat-option>
-                <mat-option value="10">Buy 10</mat-option>
-                <mat-option value="100">Buy 100</mat-option>
-                <mat-option value="1000">Buy 1K</mat-option>
-                <mat-option value="10000">Buy 10K</mat-option>
-                <mat-option value="100000">Buy 100K</mat-option>
-                <mat-option value="1000000">Buy 1M</mat-option>
-                <mat-option value="10000000">Buy 10M</mat-option>
-                <mat-option value="100000000">Buy 100M</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <button mat-raised-button color="accent" title="For 2000 Power Plant you give 1 worker!" (click)="reset()">
+              Reset
+            </button>
           </button>
+          <button mat-menu-item disabled>
+            <button mat-raised-button title="deleta all!" (click)="hardReset()" color="warn">
+              NOT!
+            </button>
+          </button>
+        </mat-menu>
+        <mat-menu #subMenu="matMenu">
+          <mat-button-toggle-group #group="matButtonToggleGroup" vertical (click)="onSelect()" class="btnff"
+            [(value)]="selected">
+            <mat-button-toggle value="1" class="btnff">Buy 1</mat-button-toggle>
+            <mat-button-toggle value="10" class="btnff">Buy 10</mat-button-toggle>
+            <mat-button-toggle value="100" class="btnff">Buy 100</mat-button-toggle>
+            <mat-button-toggle value="1000" class="btnff">Buy 1K</mat-button-toggle>
+            <mat-button-toggle value="10000" class="btnff">Buy 10K</mat-button-toggle>
+            <mat-button-toggle value="100000" class="btnff">Buy 100K</mat-button-toggle>
+            <mat-button-toggle value="1000000" class="btnff">Buy 1M</mat-button-toggle>
+            <mat-button-toggle value="10000000" class="btnff">Buy 10M</mat-button-toggle>
+            <mat-button-toggle value="100000000" class="btnff">Buy 100M</mat-button-toggle>
+          </mat-button-toggle-group>
         </mat-menu>
       </mat-toolbar-row>
       <mat-toolbar-row>
@@ -80,7 +86,10 @@
           </mat-select>
         </mat-form-field>
         <div class="flex-spacer"></div>
-        <button mat-raised-button title="For 2000 Power Plant you give 1 worker!" (click)="reset()" color="warn">Reset</button>
+        <button mat-raised-button title="For 2000 Power Plant you give 1 worker!" (click)="reset()"
+          color="accent">Reset</button>
+        <div class="flex-spacer"></div>
+        <button mat-raised-button title="deleta all!" (click)="hardReset()" color="warn">NOT!</button>
       </mat-toolbar-row>
       <mat-toolbar-row>
         <span>Production: {{productionS | shortNumber: 2}}</span>
@@ -96,6 +105,8 @@
         <mat-icon>attach_money</mat-icon>
         <div class="flex-spacer"></div>
         <button mat-raised-button (click)="sellEnergy()">Sell</button>
+        <div class="flex-spacer"></div>
+        <button mat-raised-button (click)="sellEnergy()" >Sell Green</button>
       </mat-toolbar-row>
     </mat-toolbar>
   </mat-sidenav-container>

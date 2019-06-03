@@ -9,7 +9,7 @@ class Resources {
   public name = 'Resources';
   public multiplier = 1;
   public event = PRODUCTIONEVENTS[10];
-  public eventTime = 120;
+  public eventTime = 1200;
   public eventWork = 0;
   public timeOffline;
 
@@ -22,7 +22,7 @@ class Resources {
   }
 
   sellResources(num: any) {
-    if(!num){
+    if (!num) {
       this.money += this.energy * this.energyPrice;
       this.energy = 0;
     } else {

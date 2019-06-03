@@ -13,7 +13,7 @@
   </mat-grid-tile>
   <mat-grid-tile [colspan]="3" [rowspan]="2">
     Free space<br>
-    {{powerPlant.freeSpace()}}
+    {{powerPlant.freeSpace() - powerPlant.buildings}}
   </mat-grid-tile>
   <div *ngIf="powerPlant.greenPrice">
     <mat-grid-tile [colspan]="12" [rowspan]="1">Build price</mat-grid-tile>

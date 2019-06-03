@@ -9,6 +9,7 @@ import { Observable, timer } from 'rxjs';
   templateUrl: './power-plant-detalis.component.html',
   styleUrls: ['./power-plant-detalis.component.css']
 })
+
 export class PowerPlantDetalisComponent implements OnInit {
   @Input() powerPlant: PowerPlant;
   @Input() multi: number;
@@ -24,6 +25,7 @@ export class PowerPlantDetalisComponent implements OnInit {
     this.sell$ = store.pipe(select('sell'));
   }
 
+// tslint:disable-next-line: use-life-cycle-interface
   ngOnChanges(changes: SimpleChanges): void {
     this.multi = resources.multiplier;
     this.buildTest();
@@ -90,14 +92,14 @@ export class PowerPlantDetalisComponent implements OnInit {
     if (this.powerPlant.greenBuildPrice) {
       if ((this.powerPlant.upgradePrice(this.multi) <= resources.money)
         && (this.powerPlant.greenUpgradePrice(this.multi) <= resources.greenCertyfiaction)
-        && (this.powerPlant.buildings >= (this.powerPlant.level + 1) * 25)) {
+        && (this.powerPlant.buildings >= (this.powerPlant.level + this.multi) * 25)) {
         this.upgradeButton = 'false';
       } else {
         this.upgradeButton = 'true';
       }
     } else {
       if ((this.powerPlant.upgradePrice(this.multi) <= resources.money)
-        && (this.powerPlant.buildings >= (this.powerPlant.level + 1) * 25)) {
+        && (this.powerPlant.buildings >= (this.powerPlant.level + this.multi) * 25)) {
         this.upgradeButton = 'false';
       } else {
         this.upgradeButton = 'true';

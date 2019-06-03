@@ -4,7 +4,7 @@
       <mat-toolbar-row>
         <span>{{this.title}}</span>
         <div class="flex-spacer"></div>
-        <span>Time left: {{this.timeLeft}}</span>
+        <span>Time left: {{this.timeLeft / 10 | shortNumber: 0}}</span>
       </mat-toolbar-row>
     </mat-toolbar>
     <mat-toolbar color="primary" *ngIf="rwd">
@@ -12,7 +12,7 @@
         <span>{{this.title}}</span>
       </mat-toolbar-row>
       <mat-toolbar-row>
-        <span>Time left: {{this.timeLeft}}</span>
+        <span>Time left: {{this.timeLeft / 10 | shortNumber: 0}}</span>
       </mat-toolbar-row>
     </mat-toolbar>
   </mat-sidenav-container>

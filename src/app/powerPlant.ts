@@ -24,7 +24,7 @@ export class PowerPlant {
 
   freeSpace() {
 
-    return (2000 * (this.level + 1) - this.buildings);
+    return 2000 * (this.level + 1);
   }
 
   production(event?: ProductionEvent) {

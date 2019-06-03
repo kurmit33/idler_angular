@@ -11,7 +11,7 @@ export class GreenPowerPlant extends PowerPlant {
   }
 
   build(num: number) {
-    if ((this.freeSpace() >= num) && (resources.money >= this.buildPrice(num))) {
+    if ((this.freeSpace() >= num + this.buildings) && (resources.money >= this.buildPrice(num))) {
       resources.money -= this.buildPrice(num);
       this.buildings += num;
       resources.greenCertyfiaction += (this.multi * num);
@@ -19,7 +19,7 @@ export class GreenPowerPlant extends PowerPlant {
   }
 
   upgrade(num: number) {
-    if ((this.buildings >= ((this.freeSpace() + this.buildings) / 80)) && (resources.money >= this.upgradePrice(num))) {
+    if ((num + this.level * 25 <= this.buildings) && (resources.money >= this.upgradePrice(num))) {
       resources.money -= this.upgradePrice(num);
       this.level += num;
     }

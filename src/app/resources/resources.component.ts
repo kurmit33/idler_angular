@@ -9,6 +9,7 @@ import { Store, select } from '@ngrx/store';
 import { Reset, Zero } from '../sell.actions';
 import { accu } from '../acumulators';
 import { office } from '../office';
+import { group } from '@angular/animations';
 
 @Component({
   selector: 'app-resources',
@@ -35,9 +36,10 @@ export class ResourcesComponent implements OnInit {
       this.toolbar();
     }
   }
+  // tslint:disable-next-line: use-life-cycle-interface
   ngOnChanges(changes: SimpleChanges): void {
   }
-  constructor(public breakpointObserver: BreakpointObserver, private store: Store<{sell: number}>) {
+  constructor(public breakpointObserver: BreakpointObserver, private store: Store<{ sell: number }>) {
     this.sell$ = store.pipe(select('sell'));
   }
 
@@ -55,17 +57,14 @@ export class ResourcesComponent implements OnInit {
     }
     this.selected = this.multi.toString();
     const productionTimer = timer(100, 100);
-    const eventTimer = timer(100, 1000);
     productionTimer.subscribe(val => {
       if (resources.energy + this.production() <= accu.maxEnergy()) {
-      resources.energy += this.production();
+        resources.energy += this.production();
       } else {
         resources.energy = accu.maxEnergy();
       }
       this.productionS = this.production() * 10;
-    });
-    eventTimer.subscribe(val => {
-      if (this.priceTime >= 60) {
+      if (this.priceTime >= 600) {
         resources.changePrice();
         this.priceTime = 0;
       } else {
@@ -81,6 +80,7 @@ export class ResourcesComponent implements OnInit {
     });
   }
 
+  // tslint:disable-next-line: use-life-cycle-interface
   ngAfterViewInit() {
     setTimeout(_ => this.divWidth = this.parentDiv.nativeElement.clientWidth);
   }
@@ -88,15 +88,15 @@ export class ResourcesComponent implements OnInit {
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event) {
     resources.updateStorage();
+    accu.updateStorage();
+    office.updateStorage();
     POWERPLANTS.forEach((powerPlant) => {
       powerPlant.updateStorage();
     });
-    accu.updateStorage();
-    office.updateStorage();
   }
 
   toolbar() {
-    if (this.breakpointObserver.isMatched('(max-width: 635px)')) {
+    if (this.breakpointObserver.isMatched('(max-width: 800px)')) {
       this.rwd = true;
     } else {
       this.rwd = false;
@@ -157,5 +157,27 @@ export class ResourcesComponent implements OnInit {
   offlineProduction() {
     const timeDiff = Number((Date.now() - resources.timeOffline) / 1000);
     resources.energy += this.production() * timeDiff;
+  }
+
+  hardReset() {
+    localStorage.clear();
+    POWERPLANTS.forEach((powerPlant) => {
+      powerPlant.buildings = 0;
+      powerPlant.level = 0;
+      powerPlant.engineers = 0;
+      powerPlant.updateStorage();
+    });
+    resources.money = 5;
+    resources.energy = 0;
+    resources.greenCertyfiaction = 0;
+    resources.multiplier = 1;
+    resources.updateStorage();
+    accu.buildings = 0;
+    accu.level = 0;
+    accu.updateStorage();
+    office.buildings = 0;
+    office.level = 0;
+    office.updateStorage();
+    this.store.dispatch(new Zero());
   }
 }

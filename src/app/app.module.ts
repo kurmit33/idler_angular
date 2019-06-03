@@ -31,7 +31,7 @@ import { OfficeDetalisComponent } from './office-detalis/office-detalis.componen
     ShortNumberPipe,
     EventDetalisComponent,
     AccumulatorDetalisComponent,
-    OfficeDetalisComponent
+    OfficeDetalisComponent,
   ],
   imports: [
     BrowserModule,

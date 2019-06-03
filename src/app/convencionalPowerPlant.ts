@@ -18,24 +18,22 @@ export class ConvencionalPowerPlant extends PowerPlant {
   }
 
   build(num: number) {
-    if (this.freeSpace() >= num) {
-      if ((resources.money >= this.buildPrice(num))
+    if ((this.freeSpace() >= num + this.buildings)
+      && (resources.money >= this.buildPrice(num))
       && (resources.greenCertyfiaction >= this.greenBuildPrice(num))) {
-        resources.money -= this.buildPrice(num);
-        resources.greenCertyfiaction -= this.greenBuildPrice(num);
-        this.buildings += num;
-      }
+      resources.money -= this.buildPrice(num);
+      resources.greenCertyfiaction -= this.greenBuildPrice(num);
+      this.buildings += num;
     }
   }
 
   upgrade(num: number) {
-    if (this.buildings >= ((this.freeSpace() + this.buildings) / 80)) {
-      if ((resources.money >= this.upgradePrice(num))
+    if ((num + this.level * 25 <= this.buildings)
+      && (resources.money >= this.upgradePrice(num))
       && (resources.greenCertyfiaction >= this.greenUpgradePrice(num))) {
-        resources.money -= this.upgradePrice(num);
-        resources.greenCertyfiaction -= this.greenUpgradePrice(num);
-        this.level += num;
-      }
+      resources.money -= this.upgradePrice(num);
+      resources.greenCertyfiaction -= this.greenUpgradePrice(num);
+      this.level += num;
     }
   }
 }

@@ -11,11 +11,15 @@
 }
 
 button{
-  min-width: 70px;
+  min-width: 100px;
 }
 
 .rrs span{
   width: 156px;
   display: flex;
   justify-content: flex-end;
+}
+
+.btnff{
+  min-width: 98%;
 }

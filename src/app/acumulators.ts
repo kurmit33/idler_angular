@@ -12,7 +12,7 @@ export class Acumulator {
   }
 
   freeSpace(): number {
-    return (10 * (this.level + 1) - this.buildings);
+    return 10 * (this.level + 1);
   }
   buildPrice(num: number): number {
     return (this.level + 1) * 10 * num;
@@ -29,14 +29,15 @@ export class Acumulator {
   }
 
   build(num: number) {
-    if ((resources.money >= this.buildPrice(num)) && (this.freeSpace() >= num)) {
+    if ((resources.money >= this.buildPrice(num)) && (this.freeSpace() >= num + this.buildings)) {
       resources.money -= this.buildPrice(num);
       this.buildings += num;
     }
   }
 
   upgrade(num: number) {
-    if ((resources.money >= this.upgradePrice(num)) && (this.freeSpace() <= (this.freeSpace() + this.buildings) / 2)) {
+    if ((resources.money >= this.upgradePrice(num))
+    && ((5 + 5 * (num + this.level) * (num + this.level)) / 2 <= this.buildings)) {
       resources.money -= this.upgradePrice(num);
       this.level += num;
     }
