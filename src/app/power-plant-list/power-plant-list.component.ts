@@ -4,6 +4,7 @@ import { resources } from '../resources';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { accu } from '../acumulators';
 import { office } from '../office';
+import { controlRoom } from '../controlRoom';
 
 @Component({
   selector: 'app-power-plant-list',
@@ -22,6 +23,7 @@ export class PowerPlantListComponent implements OnInit {
   selected: number;
   marginTop = 130;
   marginBottom = 70;
+  controlRoom = controlRoom;
   @Input() multi: number;
   @ViewChild('widgetParentDiv') parentDiv: ElementRef;
   @HostListener('window:resize') onresize() {

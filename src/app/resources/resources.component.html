@@ -30,8 +30,11 @@
             </button>
           </button>
           <button mat-menu-item disabled>
+              <button mat-raised-button (click)="sellEnergy()" disabled>Sell Green</button>
+          </button>
+          <button mat-menu-item disabled>
             <button mat-raised-button title="deleta all!" (click)="hardReset()" color="warn">
-              NOT!
+              Click!
             </button>
           </button>
         </mat-menu>
@@ -86,10 +89,13 @@
           </mat-select>
         </mat-form-field>
         <div class="flex-spacer"></div>
-        <button mat-raised-button title="For 2000 Power Plant you give 1 worker!" (click)="reset()"
-          color="accent">Reset</button>
+        <button mat-raised-button title="For 2000 Power Plant you give 1 worker!" (click)="reset()"color="accent">
+          Reset
+        </button>
         <div class="flex-spacer"></div>
-        <button mat-raised-button title="deleta all!" (click)="hardReset()" color="warn">NOT!</button>
+        <button mat-raised-button title="deleta all!" (click)="hardReset()" color="warn">
+            Click!
+        </button>
       </mat-toolbar-row>
       <mat-toolbar-row>
         <span>Production: {{productionS | shortNumber: 2}}</span>
@@ -106,7 +112,7 @@
         <div class="flex-spacer"></div>
         <button mat-raised-button (click)="sellEnergy()">Sell</button>
         <div class="flex-spacer"></div>
-        <button mat-raised-button (click)="sellEnergy()" >Sell Green</button>
+        <button mat-raised-button (click)="sellEnergy()" disabled>Sell Green</button>
       </mat-toolbar-row>
     </mat-toolbar>
   </mat-sidenav-container>

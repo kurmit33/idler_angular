@@ -1,16 +1,16 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { controlRoom } from '../controlRoom';
 import { Observable, timer } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { resources } from '../resources';
-import { accu } from '../acumulators';
 
 @Component({
-  selector: 'app-accumulator-detalis',
-  templateUrl: './accumulator-detalis.component.html',
-  styleUrls: ['./accumulator-detalis.component.css']
+  selector: 'app-control-room',
+  templateUrl: './control-room.component.html',
+  styleUrls: ['./control-room.component.css']
 })
-export class AccumulatorDetalisComponent implements OnInit {
-  accu = accu;
+export class ControlRoomComponent implements OnInit {
+  controlRoom = controlRoom;
   @Input() multi: number;
   sell$: Observable<number>;
   num: number;
@@ -25,36 +25,36 @@ export class AccumulatorDetalisComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.multi = resources.multiplier;
-    this.buildTest();
+    this.hireTest();
     this.upgradeTest();
   }
 
   ngOnInit() {
-    this.buildTest();
+    this.hireTest();
     this.upgradeTest();
     const eventTimer = timer(100, 100);
     eventTimer.subscribe(val => {
       this.num = Number(this.sell$);
       if (this.lastSellState !== this.num) {
-        this.buildTest();
+        this.hireTest();
         this.upgradeTest();
       }
     });
   }
 
-  build() {
-    accu.build(this.multi);
-    this.buildTest();
+  hire() {
+    controlRoom.hire(this.multi);
+    this.hireTest();
   }
 
   upgrade() {
-    accu.upgrade(this.multi);
+    controlRoom.upgrade(this.multi);
     this.upgradeTest();
   }
 
-  buildTest() {
-    if ((resources.money >= accu.buildPrice(this.multi))
-      && (this.multi + accu.buildings <= accu.freeSpace())) {
+  hireTest() {
+    if ((resources.money >= controlRoom.hirePrice(this.multi))
+      && (this.multi + controlRoom.engineers <= controlRoom.freeSpace())) {
       this.buildButton = 'false';
     } else {
       this.buildButton = 'true';
@@ -62,11 +62,11 @@ export class AccumulatorDetalisComponent implements OnInit {
   }
 
   upgradeTest() {
-    if ((resources.money >= accu.upgradePrice(this.multi))
-      && ((5 + 5 * (this.multi + accu.level)) / 2 <= accu.buildings)) {
+    if (resources.money >= controlRoom.upgradePrice(this.multi)) {
       this.upgradeButton = 'false';
     } else {
       this.upgradeButton = 'true';
     }
   }
 }
+

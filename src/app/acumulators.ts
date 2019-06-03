@@ -37,7 +37,7 @@ export class Acumulator {
 
   upgrade(num: number) {
     if ((resources.money >= this.upgradePrice(num))
-    && ((5 + 5 * (num + this.level) * (num + this.level)) / 2 <= this.buildings)) {
+    && ((5 + 5 * (num + this.level)) / 2 <= this.buildings)) {
       resources.money -= this.upgradePrice(num);
       this.level += num;
     }

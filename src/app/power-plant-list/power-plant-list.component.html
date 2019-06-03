@@ -7,7 +7,8 @@
           <mat-card-header>
             <img mat-card-avatar src={{powerPlant.logoImage}}>
             <mat-card-title>{{powerPlant.name}}</mat-card-title>
-            <mat-card-subtitle>Production: {{powerPlant.production(resources.event) * 10 | shortNumber: 2}}</mat-card-subtitle>
+            <mat-card-subtitle>Production: {{powerPlant.production(resources.event) * 10 | shortNumber: 2}}
+            </mat-card-subtitle>
           </mat-card-header>
           <img mat-card-image src={{powerPlant.image}}>
           <mat-card-content>
@@ -16,30 +17,44 @@
         </mat-card>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="4" [rowspan]="1">
-        <mat-card  class="power-plant">
-        <mat-card-header>
-          <img mat-card-avatar src="assets/image/battery.png">
-          <mat-card-title>Accumulators</mat-card-title>
-          <mat-card-subtitle>Max energy {{accu.maxEnergy()}}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image src="assets/image/accu.png">
-        <mat-card-content>
+        <mat-card class="power-plant">
+          <mat-card-header>
+            <img mat-card-avatar src="assets/image/battery.png">
+            <mat-card-title>Accumulators</mat-card-title>
+            <mat-card-subtitle>Max energy {{accu.maxEnergy()}}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="assets/image/accu.png">
+          <mat-card-content>
             <app-accumulator-detalis [multi]="resources.multiplier"></app-accumulator-detalis>
-        </mat-card-content>
-      </mat-card>
+          </mat-card-content>
+        </mat-card>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="4" [rowspan]="1">
-        <mat-card  class="power-plant">
-        <mat-card-header>
-          <img mat-card-avatar src="assets/image/office.png">
-          <mat-card-title>Office</mat-card-title>
-          <mat-card-subtitle>Sell {{office.sellEnergy(true) | shortNumber: 2}} energy every {{office.sellTime() / 10}} seconds</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image src="assets/image/office.png">
-        <mat-card-content>
+        <mat-card class="power-plant">
+          <mat-card-header>
+            <img mat-card-avatar src="assets/image/control.png">
+            <mat-card-title>Control Room</mat-card-title>
+            <mat-card-subtitle>Offline produces {{controlRoom.multiplierOffline() * 100}}% max {{controlRoom.timeOffilne() / 60000}} min</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="assets/image/control.png">
+          <mat-card-content>
+            <app-control-room [multi]="resources.multiplier"></app-control-room>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="4" [rowspan]="1">
+        <mat-card class="power-plant">
+          <mat-card-header>
+            <img mat-card-avatar src="assets/image/office.png">
+            <mat-card-title>Office</mat-card-title>
+            <mat-card-subtitle>Sell {{office.sellEnergy(true) | shortNumber: 2}} every {{office.sellTime() / 10}} sec
+            </mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="assets/image/office.png">
+          <mat-card-content>
             <app-office-detalis [multi]="resources.multiplier"></app-office-detalis>
-        </mat-card-content>
-      </mat-card>
+          </mat-card-content>
+        </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-sidenav-container>

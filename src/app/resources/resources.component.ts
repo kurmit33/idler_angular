@@ -10,6 +10,7 @@ import { Reset, Zero } from '../sell.actions';
 import { accu } from '../acumulators';
 import { office } from '../office';
 import { group } from '@angular/animations';
+import { controlRoom } from '../controlRoom';
 
 @Component({
   selector: 'app-resources',
@@ -18,6 +19,7 @@ import { group } from '@angular/animations';
 })
 
 export class ResourcesComponent implements OnInit {
+  hardFlag = false;
   event: ProductionEvent;
   resources = resources;
   powerPlants = POWERPLANTS;
@@ -63,7 +65,6 @@ export class ResourcesComponent implements OnInit {
       } else {
         resources.energy = accu.maxEnergy();
       }
-      this.productionS = this.production() * 10;
       if (this.priceTime >= 600) {
         resources.changePrice();
         this.priceTime = 0;
@@ -73,10 +74,10 @@ export class ResourcesComponent implements OnInit {
       if (resources.eventTime - resources.eventWork <= 0) {
         this.event = resources.changeEvent(resources.randomus(0, 150, 1));
         resources.eventWork = 0;
-        this.productionS = this.production() * 10;
       } else {
         resources.eventWork++;
       }
+      this.productionS = this.production() * 10;
     });
   }
 
@@ -87,12 +88,15 @@ export class ResourcesComponent implements OnInit {
 
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event) {
-    resources.updateStorage();
-    accu.updateStorage();
-    office.updateStorage();
-    POWERPLANTS.forEach((powerPlant) => {
-      powerPlant.updateStorage();
-    });
+    if (!this.hardFlag) {
+      resources.updateStorage();
+      accu.updateStorage();
+      office.updateStorage();
+      controlRoom.updateStorage();
+      POWERPLANTS.forEach((powerPlant) => {
+        powerPlant.updateStorage();
+      });
+    }
   }
 
   toolbar() {
@@ -133,16 +137,22 @@ export class ResourcesComponent implements OnInit {
     });
     temp += accu.buildings;
     temp += office.buildings;
+    tempEng += controlRoom.engineers;
     resources.money = 5;
     resources.energy = 0;
     resources.greenCertyfiaction = 0;
     resources.multiplier = 1;
     resources.workers += Math.floor(Math.floor(temp / 2000) + Math.floor(tempEng * 0.5));
-    resources.updateStorage();
     accu.buildings = 0;
     accu.level = 0;
     office.buildings = 0;
     office.level = 0;
+    controlRoom.level = 0;
+    controlRoom.engineers = 0;
+    resources.updateStorage();
+    controlRoom.updateStorage();
+    accu.updateStorage();
+    office.updateStorage();
     this.store.dispatch(new Zero());
   }
 
@@ -155,29 +165,17 @@ export class ResourcesComponent implements OnInit {
   }
 
   offlineProduction() {
-    const timeDiff = Number((Date.now() - resources.timeOffline) / 1000);
-    resources.energy += this.production() * timeDiff;
+    const timeDiff = Number((Date.now() - resources.timeOffline));
+    if (timeDiff > controlRoom.timeOffilne()) {
+      resources.energy += this.production() * (controlRoom.timeOffilne() / 100) * controlRoom.multiplierOffline();
+    } else {
+      resources.energy += this.production() * (timeDiff / 100) * controlRoom.multiplierOffline();
+    }
   }
 
   hardReset() {
+    this.hardFlag = true;
     localStorage.clear();
-    POWERPLANTS.forEach((powerPlant) => {
-      powerPlant.buildings = 0;
-      powerPlant.level = 0;
-      powerPlant.engineers = 0;
-      powerPlant.updateStorage();
-    });
-    resources.money = 5;
-    resources.energy = 0;
-    resources.greenCertyfiaction = 0;
-    resources.multiplier = 1;
-    resources.updateStorage();
-    accu.buildings = 0;
-    accu.level = 0;
-    accu.updateStorage();
-    office.buildings = 0;
-    office.level = 0;
-    office.updateStorage();
-    this.store.dispatch(new Zero());
+    window.location.reload();
   }
 }
