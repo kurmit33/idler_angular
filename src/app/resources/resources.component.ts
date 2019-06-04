@@ -31,6 +31,7 @@ export class ResourcesComponent implements OnInit {
   productionS: number;
   priceTime = 0;
   sell$: Observable<number>;
+  activeFlag: boolean;
   @ViewChild('widgetParentDiv') parentDiv: ElementRef;
   @HostListener('window:resize') onresize() {
     if (this.parentDiv) {
@@ -43,6 +44,7 @@ export class ResourcesComponent implements OnInit {
   }
   constructor(public breakpointObserver: BreakpointObserver, private store: Store<{ sell: number }>) {
     this.sell$ = store.pipe(select('sell'));
+    this.activeFlag = true;
   }
 
   ngOnInit() {
@@ -58,26 +60,17 @@ export class ResourcesComponent implements OnInit {
       this.offlineProduction();
     }
     this.selected = this.multi.toString();
-    const productionTimer = timer(100, 100);
-    productionTimer.subscribe(val => {
-      if (resources.energy + this.production() <= accu.maxEnergy()) {
-        resources.energy += this.production();
-      } else {
-        resources.energy = accu.maxEnergy();
+    const activeProductionTimer = timer(10, 100);
+    const inactiveProductionTimer = timer(10, 1000);
+    activeProductionTimer.subscribe(val => {
+      if (this.activeFlag) {
+        this.productionTime(1);
       }
-      if (this.priceTime >= 600) {
-        resources.changePrice();
-        this.priceTime = 0;
-      } else {
-        this.priceTime++;
+    });
+    inactiveProductionTimer.subscribe(val => {
+      if (!this.activeFlag) {
+        this.productionTime(10);
       }
-      if (resources.eventTime - resources.eventWork <= 0) {
-        this.event = resources.changeEvent(resources.randomus(0, 150, 1));
-        resources.eventWork = 0;
-      } else {
-        resources.eventWork++;
-      }
-      this.productionS = this.production() * 10;
     });
   }
 
@@ -97,6 +90,36 @@ export class ResourcesComponent implements OnInit {
         powerPlant.updateStorage();
       });
     }
+  }
+  @HostListener('window:focus', ['$event'])
+  onFocus(event: any): void {
+      this.activeFlag = true;
+  }
+
+  @HostListener('window:blur', ['$event'])
+  onBlur(event: any): void {
+     this.activeFlag = false;
+  }
+
+  productionTime(num: number) {
+    if (resources.energy + this.production() * num <= accu.maxEnergy()) {
+      resources.energy += this.production() * num;
+    } else {
+      resources.energy = accu.maxEnergy();
+    }
+    if (this.priceTime >= 600) {
+      resources.changePrice();
+      this.priceTime = 0;
+    } else {
+      this.priceTime += num;
+    }
+    if (resources.eventTime - resources.eventWork <= 0) {
+      this.event = resources.changeEvent(resources.randomus(0, 150, 1));
+      resources.eventWork = 0;
+    } else {
+      resources.eventWork += num;
+    }
+    this.productionS = this.production() * 10;
   }
 
   toolbar() {
