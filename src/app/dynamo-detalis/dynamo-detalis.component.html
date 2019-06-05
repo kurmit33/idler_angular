@@ -1,0 +1,19 @@
+<mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
+  <mat-grid-tile [colspan]="12" [rowspan]="3">
+    <button mat-fab color="primary" (click)="clickProduction()">Production</button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="12" [rowspan]="2">
+    Level<br>
+    {{dynamo.level}}
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="12" [rowspan]="1">
+    Upgrade price
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="12" [rowspan]="1">
+    {{dynamo.upgradePrice(multi) | shortNumber: 2 : true}}
+    <mat-icon>attach_money</mat-icon>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="12" [rowspan]="1">
+    <button mat-raised-button color="primary" (click)="upgrade()" disabled="{{upgradeButton}}">Upgrade</button>
+  </mat-grid-tile>
+</mat-grid-list>

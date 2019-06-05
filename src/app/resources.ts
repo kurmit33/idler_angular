@@ -1,11 +1,11 @@
 import { PRODUCTIONEVENTS } from './productionEventsList';
 
 class Resources {
-  public money = 5;
+  public money = 0;
   public workers = 0;
   public greenCertyfiaction = 0;
   public energy = 0;
-  public energyPrice = 0;
+  public energyPrice = 0.1;
   public name = 'Resources';
   public multiplier = 1;
   public event = PRODUCTIONEVENTS[10];

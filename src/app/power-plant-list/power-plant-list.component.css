@@ -2,3 +2,8 @@
   min-width: 300px;
   min-height: 600px;
 }
+
+.prod:hover {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}

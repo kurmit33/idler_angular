@@ -11,6 +11,7 @@ import { accu } from '../acumulators';
 import { office } from '../office';
 import { group } from '@angular/animations';
 import { controlRoom } from '../controlRoom';
+import { dynamo } from '../dynamo';
 
 @Component({
   selector: 'app-resources',
@@ -86,6 +87,7 @@ export class ResourcesComponent implements OnInit {
       accu.updateStorage();
       office.updateStorage();
       controlRoom.updateStorage();
+      dynamo.updateStorage();
       POWERPLANTS.forEach((powerPlant) => {
         powerPlant.updateStorage();
       });
@@ -161,7 +163,7 @@ export class ResourcesComponent implements OnInit {
     temp += accu.buildings;
     temp += office.buildings;
     tempEng += controlRoom.engineers;
-    resources.money = 5;
+    resources.money = 0;
     resources.energy = 0;
     resources.greenCertyfiaction = 0;
     resources.multiplier = 1;
@@ -176,6 +178,7 @@ export class ResourcesComponent implements OnInit {
     controlRoom.updateStorage();
     accu.updateStorage();
     office.updateStorage();
+    dynamo.level = 0;
     this.store.dispatch(new Zero());
   }
 

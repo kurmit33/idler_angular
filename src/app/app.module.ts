@@ -22,6 +22,7 @@ import { StoreModule } from '@ngrx/store';
 import { AccumulatorDetalisComponent } from './accumulator-detalis/accumulator-detalis.component';
 import { OfficeDetalisComponent } from './office-detalis/office-detalis.component';
 import { ControlRoomComponent } from './control-room/control-room.component';
+import { DynamoDetalisComponent } from './dynamo-detalis/dynamo-detalis.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ControlRoomComponent } from './control-room/control-room.component';
     AccumulatorDetalisComponent,
     OfficeDetalisComponent,
     ControlRoomComponent,
+    DynamoDetalisComponent,
   ],
   imports: [
     BrowserModule,

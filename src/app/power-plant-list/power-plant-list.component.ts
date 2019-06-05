@@ -5,6 +5,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { accu } from '../acumulators';
 import { office } from '../office';
 import { controlRoom } from '../controlRoom';
+import { dynamo } from '../dynamo';
 
 @Component({
   selector: 'app-power-plant-list',
@@ -17,6 +18,7 @@ export class PowerPlantListComponent implements OnInit {
   resources = resources;
   accu = accu;
   office = office;
+  dynamo = dynamo;
   clickedID: number;
   divWidth = 0;
   columnNum = 20;
@@ -39,6 +41,7 @@ export class PowerPlantListComponent implements OnInit {
     this.columns();
   }
 
+// tslint:disable-next-line: use-life-cycle-interface
   ngAfterViewInit() {
     setTimeout(_ => this.divWidth = this.parentDiv.nativeElement.clientWidth);
   }

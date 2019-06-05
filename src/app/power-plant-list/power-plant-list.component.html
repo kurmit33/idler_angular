@@ -2,20 +2,19 @@
 <div #widgetParentDiv>
   <mat-sidenav-container class="cointainer">
     <mat-grid-list cols="{{this.columnNum}}" rowHeight="750px" gutterSize="5px">
-      <mat-grid-tile *ngFor="let powerPlant of powerPlants; let i = index" [colspan]="4" [rowspan]="1">
-        <mat-card class="power-plant">
-          <mat-card-header>
-            <img mat-card-avatar src={{powerPlant.logoImage}}>
-            <mat-card-title>{{powerPlant.name}}</mat-card-title>
-            <mat-card-subtitle>Production: {{powerPlant.production(resources.event) * 10 | shortNumber: 2}}
-            </mat-card-subtitle>
-          </mat-card-header>
-          <img mat-card-image src={{powerPlant.image}}>
-          <mat-card-content>
-            <app-power-plant-detalis [powerPlant]="powerPlant" [multi]="resources.multiplier"></app-power-plant-detalis>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+            <mat-card class="power-plant">
+              <mat-card-header>
+                <img mat-card-avatar src="assets/image/dynamo.png">
+                <mat-card-title>Dynamo</mat-card-title>
+                <mat-card-subtitle>Production per click {{dynamo.production()}}</mat-card-subtitle>
+              </mat-card-header>
+              <img mat-card-image src="assets/image/dynamo.png">
+              <mat-card-content>
+                <app-dynamo-detalis [multi]="resources.multiplier"></app-dynamo-detalis>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
       <mat-grid-tile [colspan]="4" [rowspan]="1">
         <mat-card class="power-plant">
           <mat-card-header>
@@ -34,7 +33,8 @@
           <mat-card-header>
             <img mat-card-avatar src="assets/image/control.png">
             <mat-card-title>Control Room</mat-card-title>
-            <mat-card-subtitle>Offline produces {{controlRoom.multiplierOffline() * 100}}% max {{controlRoom.timeOffilne() / 60000}} min</mat-card-subtitle>
+            <mat-card-subtitle>Offline produces {{controlRoom.multiplierOffline() * 100}}% max
+              {{controlRoom.timeOffilne() / 60000}} min</mat-card-subtitle>
           </mat-card-header>
           <img mat-card-image src="assets/image/control.png">
           <mat-card-content>
@@ -53,6 +53,20 @@
           <img mat-card-image src="assets/image/office.png">
           <mat-card-content>
             <app-office-detalis [multi]="resources.multiplier"></app-office-detalis>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile *ngFor="let powerPlant of powerPlants; let i = index" [colspan]="4" [rowspan]="1">
+        <mat-card class="power-plant">
+          <mat-card-header>
+            <img mat-card-avatar src={{powerPlant.logoImage}}>
+            <mat-card-title>{{powerPlant.name}}</mat-card-title>
+            <mat-card-subtitle>Production: {{powerPlant.production(resources.event) * 10 | shortNumber: 2}}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src={{powerPlant.image}}>
+          <mat-card-content>
+            <app-power-plant-detalis [powerPlant]="powerPlant" [multi]="resources.multiplier"></app-power-plant-detalis>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
